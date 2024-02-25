@@ -1,66 +1,145 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<a name="readme-top"></a>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+<h3 align="center">Movies</h3>
 
-## About Laravel
+  <p align="center">
+    <br />
+    <a href="https://github.com/colpno/movie-app/tree/master/docs"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/colpno/movie-app/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/colpno/movie-app/issues">Request Feature</a>
+  </p>
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+      <ul>
+        <li><a href="#which-features-this-project-deal-with">Which features this project deal with</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Built With
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [![PHP][php-badge]][php-url]
+- [![Laravel][laravel-badge]][laravel-url]
+- [![MySQL][mysql-badge]][mysql-url]
 
-## Learning Laravel
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Which features this project deal with
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- How to create and use [Controllers](https://laravel.com/docs/10.x/controllers).
+- How to create and use [Factory](https://laravel.com/docs/10.x/eloquent-factories)
+- How to create and use [Migration](https://laravel.com/docs/10.x/migrations)
+- How to create and use [Seeding](https://laravel.com/docs/10.x/seeding)
+- How to create [Routes](https://laravel.com/docs/10.x/routing)
+- How to protect routes with [Sanctum](https://laravel.com/docs/10.x/sanctum)
+- How to integrate MySQL in Laravel
+- How to implement REST API in Laravel
+- How to authorize the requests with token in Laravel
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Getting Started
 
-## Laravel Sponsors
+### Prerequisites
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- npm
+- Laravel
+- MySQL
+- An empty MySQL database
 
-### Premium Partners
+### Installation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+1. Clone the repository.
 
-## Contributing
+```sh
+git clone https://github.com/colpno/movie-app.git
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. Install dependencies.
 
-## Code of Conduct
+```sh
+cd movie-app/server
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. Create .env file
 
-## Security Vulnerabilities
+```sh
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Generate an app encryption key and fill the `APP_KEY` in .env file with the generated key
 
-## License
+```sh
+php artisan key:generate
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. Fill in the `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` in .env file to match the credentials of the created database 
+
+6. Migrate the database
+
+```sh
+php artisan migrate
+```
+
+7. Seed the database
+
+```sh
+php artisan db:seed
+```
+
+>To start the server, run:
+
+```sh
+php artisan serve
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contact
+
+Tạ Gia Vinh - gvinhh@gmail.com
+
+- [![LinkedIn][linkedin-shield]][linkedin-url]
+- [![Facebook][Facebook-shield]][Facebook-url]
+
+Project Link: [https://github.com/colpno/movie-app](https://github.com/colpno/movie-app)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[php-url]: https://www.php.net/
+[php-badge]: https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=61DAFB
+[laravel-url]: https://laravel.com/
+[laravel-badge]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=61DAFB
+[mysql-url]: https://www.mysql.com/
+[mysql-badge]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=61DAFB
+
+[Facebook-shield]: https://img.shields.io/badge/Facebook-0866FF?style=for-the-badge&logo=facebook&logoColor=61DAFB
+[Facebook-url]: https://www.facebook.com/profile.php?id=100005408149001
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/gia-vinh-t%E1%BA%A1-a2224b2a8
