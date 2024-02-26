@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers\Api\V1;
+
+use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
+
+class GenreController extends Controller
+{
+    private $http;
+    private $tmdbBaseURL;
+    private $tmdbAccessToken;
+
+    public function __construct()
+    {
+        $this->http = new Client();
+        $this->tmdbBaseURL = config('constants.TMDB_BASE_URL');
+        $this->tmdbAccessToken = config('constants.TMDB_ACCESS_TOKEN');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $url = $this->tmdbBaseURL . '/genre/movie/list';
+        $res = $this->http->request('GET', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
+                'accept' => 'application/json',
+            ],
+        ]);
+        return $res->getBody();
+    }
+}
