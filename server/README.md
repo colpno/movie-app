@@ -58,6 +58,7 @@
 - How to integrate MySQL in Laravel
 - How to implement REST API in Laravel
 - How to authorize the requests with token in Laravel
+- How to implement [Rate Limiting](https://laravel.com/docs/10.x/routing#rate-limiting)
 
 ## Getting Started
 
