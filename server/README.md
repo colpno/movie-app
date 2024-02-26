@@ -60,6 +60,8 @@
 - How to authorize the requests with token in Laravel
 - How to implement [Rate Limiting](https://laravel.com/docs/10.x/routing#rate-limiting)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Getting Started
 
 ### Prerequisites

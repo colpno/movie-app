@@ -64,6 +64,8 @@
 - Use [React Router](https://reactrouter.com/en/main) for routing.
 - Implement [axios](https://axios-http.com/docs/intro) for requests.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Getting Started
 
 ### Prerequisites
