@@ -106,15 +106,15 @@ Project Link: [https://github.com/colpno/movie-app](https://github.com/colpno/mo
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React.js]: https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=000000
 [React-url]: https://reactjs.org/
 [typescript-url]: https://www.typescriptlang.org/
-[typescript-badge]: https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=61DAFB
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[typescript-badge]: https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=FFFFFF
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [tailwind-url]: https://tailwindcss.com/
-[tailwind-badge]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=61DAFB
-[Facebook-shield]: https://img.shields.io/badge/Facebook-0866FF?style=for-the-badge&logo=facebook&logoColor=61DAFB
+[tailwind-badge]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=FFFFFF
+[Facebook-shield]: https://img.shields.io/badge/Facebook-0866FF?style=for-the-badge&logo=facebook&logoColor=FFFFFF
 [Facebook-url]: https://www.facebook.com/profile.php?id=100005408149001
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=FFFFFF
 [linkedin-url]: https://www.linkedin.com/in/gia-vinh-t%E1%BA%A1-a2224b2a8

@@ -134,13 +134,13 @@ Project Link: [https://github.com/colpno/movie-app](https://github.com/colpno/mo
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [php-url]: https://www.php.net/
-[php-badge]: https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=61DAFB
+[php-badge]: https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=FFFFFF
 [laravel-url]: https://laravel.com/
-[laravel-badge]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=61DAFB
+[laravel-badge]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=FFFFFF
 [mysql-url]: https://www.mysql.com/
-[mysql-badge]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=61DAFB
+[mysql-badge]: https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=FFFFFF
 
-[Facebook-shield]: https://img.shields.io/badge/Facebook-0866FF?style=for-the-badge&logo=facebook&logoColor=61DAFB
+[Facebook-shield]: https://img.shields.io/badge/Facebook-0866FF?style=for-the-badge&logo=facebook&logoColor=FFFFFF
 [Facebook-url]: https://www.facebook.com/profile.php?id=100005408149001
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=FFFFFF
 [linkedin-url]: https://www.linkedin.com/in/gia-vinh-t%E1%BA%A1-a2224b2a8
