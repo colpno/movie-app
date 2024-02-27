@@ -21,9 +21,9 @@ class GenreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $mediaType)
     {
-        $url = $this->tmdbBaseURL . '/genre/movie/list';
+        $url = $this->tmdbBaseURL . '/genre/' . $mediaType . '/list';
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,

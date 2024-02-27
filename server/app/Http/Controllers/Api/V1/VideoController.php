@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class MovieController extends Controller
+class VideoController extends Controller
 {
     private $http;
     private $tmdbBaseURL;
@@ -20,20 +20,16 @@ class MovieController extends Controller
     }
 
     /**
-     * Display a listing of the movie.
+     * Fetching a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, string $mediaType)
     {
-        // Handle query string
         $initialQueries = [
             'page' => 1,
         ];
-        $requestQueryString = $request->getQueryString();
-        parse_str($requestQueryString, $queryArray);
-        $queryArray = array_merge($initialQueries, $queryArray);
-        $queryString = http_build_query($queryArray);
+        $queryString = mergeQueryString($request->getQueryString(), $initialQueries);
 
-        $url = $this->tmdbBaseURL . '/discover/movie?' . $queryString;
+        $url = $this->tmdbBaseURL . '/discover/' . $mediaType . '?' . $queryString;
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
@@ -44,11 +40,11 @@ class MovieController extends Controller
     }
 
     /**
-     * Display a listing of the upcoming movie.
+     * Fetching a listing of the resource by type.
      */
-    public function getUpcoming()
+    public function getByType(Request $request, string $mediaType, string $type)
     {
-        $url = $this->tmdbBaseURL . '/movie/upcoming?page=1';
+        $url = $this->tmdbBaseURL . '/' . $mediaType . '/' . $type;
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
@@ -59,11 +55,11 @@ class MovieController extends Controller
     }
 
     /**
-     * Display a listing of the trending movie.
+     * Fetching a listing of the trending resource.
      */
-    public function getTrending()
+    public function getTrending(string $mediaType)
     {
-        $url = $this->tmdbBaseURL . '/trending/movie/day';
+        $url = $this->tmdbBaseURL . '/trending/' . $mediaType . '/day';
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
@@ -74,11 +70,27 @@ class MovieController extends Controller
     }
 
     /**
-     * Display the specified movie.
+     * Fetching the specified resource.
      */
-    public function detail(string $id)
+    public function detail(string $mediaType, string $id)
     {
-        $url = $this->tmdbBaseURL . '/movie/' . $id;
+        $url = $this->tmdbBaseURL . '/' . $mediaType . '/' . $id;
+        $res = $this->http->request('GET', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
+                'accept' => 'application/json',
+            ],
+        ]);
+        return $res->getBody();
+    }
+
+    /**
+     * Search the resources.
+     */
+    public function search(Request $request, string $mediaType)
+    {
+        $queryString = $request->getQueryString();
+        $url = $this->tmdbBaseURL . '/search/' . $mediaType . '?' . $queryString;
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
