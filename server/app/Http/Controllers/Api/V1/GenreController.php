@@ -13,6 +13,7 @@ class GenreController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->http = new Client();
         $this->tmdbBaseURL = config('constants.TMDB_BASE_URL');
         $this->tmdbAccessToken = config('constants.TMDB_ACCESS_TOKEN');
@@ -30,6 +31,10 @@ class GenreController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 }

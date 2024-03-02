@@ -14,6 +14,7 @@ class VideoController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->http = new Client();
         $this->tmdbBaseURL = config('constants.TMDB_BASE_URL');
         $this->tmdbAccessToken = config('constants.TMDB_ACCESS_TOKEN');
@@ -36,7 +37,11 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 
     /**
@@ -51,22 +56,30 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 
     /**
      * Fetching a listing of the trending resource.
      */
-    public function getTrending(string $mediaType)
+    public function getTrending(string $mediaType, string $time)
     {
-        $url = $this->tmdbBaseURL . '/trending/' . $mediaType . '/day';
+        $url = $this->tmdbBaseURL . '/trending/' . $mediaType . '/' . $time;
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 
     /**
@@ -81,7 +94,11 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 
     /**
@@ -97,6 +114,10 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        return $res->getBody();
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
     }
 }
