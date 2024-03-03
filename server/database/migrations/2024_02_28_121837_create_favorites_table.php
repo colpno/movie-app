@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('favorites')->dropIndex('favorites_user_id_index')->dropColumn('user_id');
+        Schema::dropIndex('favorites_user_id_index')->dropColumn('user_id')->dropIfExists('favorites');
     }
 };
