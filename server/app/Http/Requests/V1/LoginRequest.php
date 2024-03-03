@@ -5,15 +5,14 @@ namespace App\Http\Requests\V1;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class UpdateUserRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize() : bool
     {
-        $user = $this->user();
-        return isset($user) && $user->tokenCan("update");
+        return true;
     }
 
     /**
@@ -21,11 +20,11 @@ class UpdateUserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
-            "email" => 'sometimes|email',
-            "password" => ['sometimes', Password::min(8)->letters()->numbers()->symbols()],
+            "email" => 'required|email',
+            "password" => ['required', Password::min(8)->letters()->numbers()->symbols()],
         ];
     }
 }
