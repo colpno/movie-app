@@ -58,6 +58,7 @@
 - How to integrate MySQL in Laravel
 - How to implement REST API in Laravel
 - How to authorize the requests with token in Laravel
+- How to implement [CSRF Protection](https://laravel.com/docs/10.x/sanctum#csrf-protection)
 - How to implement [Rate Limiting](https://laravel.com/docs/10.x/routing#rate-limiting)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
