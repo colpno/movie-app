@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Http\Request;
 
@@ -10,14 +11,14 @@ class Embedding
 	/**
 	 * @throws RelationNotFoundException if the relation not found
 	 */
-	public function transform(Request $request, mixed &$resource)
+	public function embed(Request $request, mixed &$resource)
 	{
-		$embeds = json_decode($request->query('embed')); // [field]
+		$embeds = json_decode($request->query('embed')); // ["column"]
 
 		if (isset($embeds) && is_array($embeds) && count($embeds) > 0 && isset($resource)) {
 			try {
 				foreach ($embeds as $embed) {
-					$resource = is_array($resource)
+					$resource = $resource instanceof Builder
 						? $resource->with($embed)
 						: $resource->loadMissing($embed);
 				}
