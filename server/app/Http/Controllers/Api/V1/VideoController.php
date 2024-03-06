@@ -25,50 +25,8 @@ class VideoController extends Controller
      */
     public function index(Request $request, string $mediaType)
     {
-        $initialQueries = [
-            'page' => 1,
-        ];
-        $queryString = mergeQueryString($request->getQueryString(), $initialQueries);
-
+        $queryString = $request->getQueryString();
         $url = $this->tmdbBaseURL . '/discover/' . $mediaType . '?' . $queryString;
-        $res = $this->http->request('GET', $url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
-                'accept' => 'application/json',
-            ],
-        ]);
-        $data = json_decode($res->getBody()->getContents(), true);
-
-        return $res->getStatusCode() < 300
-            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
-            : $this->apiResponse->error($res->getStatusCode(), $data);
-    }
-
-    /**
-     * Fetching a listing of the resource by type.
-     */
-    public function getByType(Request $request, string $mediaType, string $type)
-    {
-        $url = $this->tmdbBaseURL . '/' . $mediaType . '/' . $type;
-        $res = $this->http->request('GET', $url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
-                'accept' => 'application/json',
-            ],
-        ]);
-        $data = json_decode($res->getBody()->getContents(), true);
-
-        return $res->getStatusCode() < 300
-            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
-            : $this->apiResponse->error($res->getStatusCode(), $data);
-    }
-
-    /**
-     * Fetching a listing of the trending resource.
-     */
-    public function getTrending(string $mediaType, string $time)
-    {
-        $url = $this->tmdbBaseURL . '/trending/' . $mediaType . '/' . $time;
         $res = $this->http->request('GET', $url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
