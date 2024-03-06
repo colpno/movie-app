@@ -64,7 +64,7 @@ class FavoriteController extends Controller
     public function store(StoreFavoriteRequest $request)
     {
         try {
-            $favorite = new FavoriteResource(Favorite::create($request->all()));
+            $favorite = new FavoriteResource(Favorite::create($request->validated()));
             return $this->apiResponse->success(201, 'Favor successfully', $favorite);
         } catch (\Throwable $th) {
             return $this->apiResponse->error(500, $th->getMessage());

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\LoginRequest;
 use App\Http\Requests\V1\LogoutRequest;
 use App\Http\Requests\V1\RegisterRequest;
+use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -15,8 +16,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            User::create($request->all());
-            return $this->apiResponse->success(201, "Register successfully", $request->all());
+            $user = new UserResource(User::create($request->validated()));
+            return $this->apiResponse->success(201, "Register successfully", $user);
         } catch (\Throwable $th) {
             return $this->apiResponse->error($th->getMessage());
         }
