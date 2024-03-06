@@ -8,7 +8,7 @@ use App\Http\Resources\V1\FavoriteCollection;
 use App\Http\Resources\V1\FavoriteResource;
 use App\Models\Favorite;
 use App\Services\V1\FavoriteQuery;
-use Illuminate\Database\Eloquent\RelationNotFoundException;
+use App\Services\V1\FavoriteSorting;
 use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
@@ -19,6 +19,7 @@ class FavoriteController extends Controller
     {
         parent::__construct();
         $this->filter = new FavoriteQuery();
+        $this->sorting = new FavoriteSorting();
     }
 
     /**
@@ -27,15 +28,20 @@ class FavoriteController extends Controller
     public function index(Request $request)
     {
         $queryItems = $this->filter->transform($request);
-        $favorites = Favorite::where($queryItems);
 
         try {
-            $this->embedding->transform($request, $favorites);
-            $collection = new FavoriteCollection($favorites->paginate($request->query('perPage'))->appends($request->query()));
+            $favorites = Favorite::where($queryItems);
+            $this->embedding->embed($request, $favorites);
+            $this->sorting->sort($favorites, $request);
+            $this->pagination->paginate($favorites, $request);
+
+            $collection = new FavoriteCollection($favorites->get());
             return $this->apiResponse->success(200, null, $collection);
-        } catch (RelationNotFoundException $e) {
+        } catch (\Throwable $e) {
             return $this->apiResponse->error(400, $e->getMessage());
         }
+
+
     }
 
     /**
@@ -44,10 +50,10 @@ class FavoriteController extends Controller
     public function show(Favorite $favorite)
     {
         try {
-            $this->embedding->transform(request(), $favorite);
+            $this->embedding->embed(request(), $favorite);
             $resource = new FavoriteResource($favorite);
             return $this->apiResponse->success(200, null, $resource);
-        } catch (RelationNotFoundException $e) {
+        } catch (\Throwable $e) {
             return $this->apiResponse->error(400, $e->getMessage());
         }
     }
