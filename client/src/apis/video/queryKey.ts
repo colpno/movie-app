@@ -11,6 +11,6 @@ export const videoKeys = {
     [...videoKeys.lists(mediaType), filter] as const,
   details: (mediaType: MediaType) => [...videoKeys.all(mediaType), 'detail'] as const,
   detail: (mediaType: MediaType, id: number) => [...videoKeys.details(mediaType), id] as const,
-  inuseDetail: (mediaType: MediaType) => [...videoKeys.details(mediaType), 'inuse'] as const,
+  inuse: () => ['videos', 'detail', 'inuse'] as const,
   trailer: ['trailer'] as const,
 };
