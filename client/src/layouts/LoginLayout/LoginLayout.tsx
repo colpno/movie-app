@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '~/components/Header.tsx';
 
-function AuthenticLayout() {
+function LoginLayout() {
   return (
     <>
       <Header />
@@ -13,4 +13,4 @@ function AuthenticLayout() {
   );
 }
 
-export default AuthenticLayout;
+export default LoginLayout;
