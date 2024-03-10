@@ -19,7 +19,11 @@ const localStoragePersister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-const persistKeys = [JSON.stringify(userKeys.detail), JSON.stringify(videoKeys.trailer)];
+const persistKeys = [
+  JSON.stringify(userKeys.detail),
+  JSON.stringify(userKeys.apiToken()),
+  JSON.stringify(videoKeys.trailer),
+];
 
 persistQueryClient({
   queryClient,

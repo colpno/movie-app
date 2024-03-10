@@ -31,5 +31,6 @@ export const useLogin = () =>
     onSuccess: ({ message, data }) => {
       emitToast(message, 'success');
       queryClient.setQueryData(userKeys.detail, data.user);
+      queryClient.setQueryData(userKeys.apiToken(), data.token);
     },
   });
