@@ -31,7 +31,7 @@ class GenreController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        $data = json_decode($res->getBody()->getContents(), true);
+        $data = json_decode($res->getBody()->getContents(), true)['genres'];
 
         return $res->getStatusCode() < 300
             ? $this->apiResponse->success($res->getStatusCode(), null, $data)
