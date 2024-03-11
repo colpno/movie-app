@@ -4,5 +4,6 @@
 
 :root {
   --navbar-height: 6.5rem;
+  --header-height: 5rem;
   --notfound-navbar-height: 68px;
 }
