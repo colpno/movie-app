@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Psr\Http\Message\ResponseInterface;
 
 class VideoController extends Controller
 {
@@ -21,6 +23,18 @@ class VideoController extends Controller
     }
 
     /**
+     * Convert GuzzleHttp response
+     */
+    private function returning(ResponseInterface $res): JsonResponse
+    {
+        $data = json_decode($res->getBody()->getContents(), true);
+
+        return $res->getStatusCode() < 300
+            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
+            : $this->apiResponse->error($res->getStatusCode(), $data);
+    }
+
+    /**
      * Fetching a listing of the resource.
      */
     public function index(Request $request, string $mediaType)
@@ -33,11 +47,8 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        $data = json_decode($res->getBody()->getContents(), true);
 
-        return $res->getStatusCode() < 300
-            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
-            : $this->apiResponse->error($res->getStatusCode(), $data);
+        return $this->returning($res);
     }
 
     /**
@@ -52,11 +63,8 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        $data = json_decode($res->getBody()->getContents(), true);
 
-        return $res->getStatusCode() < 300
-            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
-            : $this->apiResponse->error($res->getStatusCode(), $data);
+        return $this->returning($res);
     }
 
     /**
@@ -72,10 +80,23 @@ class VideoController extends Controller
                 'accept' => 'application/json',
             ],
         ]);
-        $data = json_decode($res->getBody()->getContents(), true);
 
-        return $res->getStatusCode() < 300
-            ? $this->apiResponse->success($res->getStatusCode(), null, $data)
-            : $this->apiResponse->error($res->getStatusCode(), $data);
+        return $this->returning($res);
+    }
+
+    /**
+     * Get trailer based on mediaType and id
+     */
+    public function trailer(Request $request, string $mediaType, string $id)
+    {
+        $url = $this->tmdbBaseURL . '/' . $mediaType . '/' . $id . '/videos';
+        $res = $this->http->request('GET', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->tmdbAccessToken,
+                'accept' => 'application/json',
+            ],
+        ]);
+
+        return $this->returning($res);
     }
 }
