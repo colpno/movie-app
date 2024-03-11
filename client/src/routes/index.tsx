@@ -2,9 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.tsx';
 import LoginLayout from '~/layouts/LoginLayout/LoginLayout.tsx';
-import Login from '~/pages/Login.tsx';
+import LoginPage from '~/pages/Login.tsx';
 import NotFound from '~/pages/NotFound.tsx';
-import SignUp from '~/pages/SignUp.tsx';
+import SignUpPage from '~/pages/SignUp.tsx';
 import ProtectedRoutes from './ProtectedRoutes.tsx';
 
 export const routes = createBrowserRouter([
@@ -41,11 +41,11 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: 'signup',
-        element: <SignUp />,
+        element: <SignUpPage />,
       },
     ],
   },
