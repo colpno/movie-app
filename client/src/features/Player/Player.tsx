@@ -1,4 +1,3 @@
-import playerPageLoader from '~/features/Player/loader.ts';
 import GoBackButton from './components/GoBackButton';
 import Video from './components/Video';
 
@@ -11,4 +10,4 @@ function Player() {
   );
 }
 
-export { Player as Component, playerPageLoader as loader };
+export default Player;

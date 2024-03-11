@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 
+import background from '~/assets/bg-lost-in-space.png';
 import logo from '~/assets/logo.png';
+import BackgroundImage from '~/components/BackgroundImage.tsx';
 import Button from '~/components/Button/Button.tsx';
 
 function NotFound() {
@@ -15,7 +17,11 @@ function NotFound() {
           </div>
         </div>
       </header>
-      <main className="bg-[url('src/assets/bg-lost-in-space.png')] bg-no-repeat bg-size bg-cover flex flex-col justify-center items-center pt-[var(--notfound-navbar-height)] text-center select-none w-screen h-screen">
+      <main className="flex flex-col justify-center items-center text-center select-none w-screen h-screen">
+        <BackgroundImage
+          src={background}
+          className="h-[calc(h-screen-var(--notfound-navbar-height))]"
+        />
         <h1 className="text-inherit mt-0 [text-shadow:_0_1px_2px_rgba(0,0,0,.57)] text-[6em] font-[500] mb-[2vw] z-[1]">
           Lost your way?
         </h1>
