@@ -47,9 +47,13 @@ class FavoriteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Favorite $favorite)
+    public function show(string $mediaType, int $videoId)
     {
         try {
+            $favorite = Favorite::where([
+                ["video_id", '=', $videoId],
+                ["media_type", '=', $mediaType]
+            ]);
             $this->embedding->embed(request(), $favorite);
             $resource = new FavoriteResource($favorite);
             return $this->apiResponse->success(200, null, $resource);
