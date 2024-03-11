@@ -18,11 +18,17 @@ Route::group(['prefix' => "v1"], function () {
 		Route::get("/", 'index')->whereIn('mediaType', ['movie', 'tv']);
 		Route::get("search", 'search')->whereIn('mediaType', ['movie', 'tv']);
 		Route::get("{id}", 'detail')->whereIn('mediaType', ['movie', 'tv'])->whereNumber('id');
+		Route::get("{id}/trailer", 'trailer')->whereIn('mediaType', ['movie', 'tv'])->whereNumber('id');
 	});
 
 	// Protected routes
 	Route::middleware('auth:sanctum')->group(function () {
-		Route::apiResource('favorites', FavoriteController::class);
+		Route::prefix('favorites')->controller(FavoriteController::class)->group(function () {
+			Route::get("/", 'index');
+			Route::post("/", 'store');
+			Route::delete("/", 'destroy');
+			Route::get("{mediaType}/{id}", 'show')->whereIn('mediaType', ['movie', 'tv'])->whereNumber('id');
+		});
 		Route::prefix("auth")->controller(AuthController::class)->group(function () {
 			Route::post('logout', 'logout');
 		});
