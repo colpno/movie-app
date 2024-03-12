@@ -6,7 +6,7 @@ use App\Services\ApiQuery;
 
 class FavoriteQuery extends ApiQuery
 {
-	protected $safeParams = [
+	protected $safeQueries = [
 		'videoId' => ['eq'],
 		'userId' => ['eq'],
 	];
