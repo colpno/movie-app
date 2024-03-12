@@ -25,7 +25,7 @@ const homePageLoader = async () => {
   ]);
 
   return json({
-    movies: [...moviesPage1.data.results, ...moviesPage2.data.results, ...moviesPage3.data.results],
+    movies: [...moviesPage1.results, ...moviesPage2.results, ...moviesPage3.results],
     genres,
   });
 };

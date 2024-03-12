@@ -83,20 +83,20 @@ interface TVParams {
 }
 
 interface MovieResponse {
-  page: number;
   results: DiscoverMovie[];
+  page: number;
   total_pages: number;
   total_results: number;
 }
 
 interface TVResponse {
-  page: number;
   results: DiscoverTV[];
+  page: number;
   total_pages: number;
   total_results: number;
 }
 
-type QueryOptions<T extends MediaType> = UseQueryOptions<Response<T>>;
+type QueryOptions<T extends MediaType> = UseQueryOptions<Response<T>['data']>;
 
 type Params<T extends MediaType> = T extends 'movie'
   ? MovieParams
@@ -107,7 +107,7 @@ type Params<T extends MediaType> = T extends 'movie'
 export interface Args<T extends MediaType> {
   mediaType: T;
   params?: Params<T>;
-  queryOptions?: Omit<QueryOptions<T>, 'queryKey'>;
+  queryOptions?: QueryOptions<T>;
 }
 
 export type Response<T> = {
@@ -116,14 +116,13 @@ export type Response<T> = {
 
 const getVideos = async <T extends MediaType>({ mediaType, params }: Args<T>) => {
   const BASE_URL = mediaType;
-  return await axiosClient.get<never, Response<T>>(BASE_URL, { params });
+  return (await axiosClient.get<never, Response<T>>(BASE_URL, { params })).data;
 };
 
-const getVideosQuery = <T extends MediaType>(args: Args<T>): QueryOptions<T> => {
+const getVideosQuery = <T extends MediaType>(args: Args<T>) => {
   const { params, mediaType, queryOptions } = args;
   return {
     ...queryOptions,
-    initialData: undefined,
     queryFn: () => getVideos<T>(args),
     queryKey: params ? videoKeys.list(mediaType, params) : videoKeys.lists(mediaType),
   };
@@ -137,5 +136,5 @@ export const videosLoader =
   async () => {
     const query = getVideosQuery<T>(args);
     return ((await queryClient.getQueryData(query.queryKey ?? `${args.mediaType}s`)) ??
-      (await queryClient.fetchQuery(query))) as Response<T>;
+      (await queryClient.fetchQuery(query))) as Response<T>['data'];
   };
