@@ -11,6 +11,7 @@ const queryClient = new QueryClient({
       gcTime: Infinity,
       refetchOnMount: false,
       refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -19,18 +20,14 @@ const localStoragePersister = createSyncStoragePersister({
   storage: window.localStorage,
 });
 
-const persistKeys = [
-  JSON.stringify(userKeys.detail),
-  JSON.stringify(userKeys.apiToken()),
-  JSON.stringify(videoKeys.trailer),
-];
+const persistKeys = [userKeys.detail, userKeys.apiToken(), videoKeys.trailer];
 
 persistQueryClient({
   queryClient,
   persister: localStoragePersister,
   dehydrateOptions: {
     shouldDehydrateQuery: ({ queryKey }) => {
-      return persistKeys.includes(JSON.stringify(queryKey));
+      return persistKeys.some((key) => JSON.stringify(key) === JSON.stringify(queryKey));
     },
   },
   maxAge: Infinity,
