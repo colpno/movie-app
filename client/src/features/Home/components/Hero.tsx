@@ -10,7 +10,11 @@ function Hero() {
 
   return (
     <div className="relative">
-      <img src={backgroundImage} alt="background" className="w-screen h-screen brightness-[.6]" />
+      <img
+        src={backgroundImage}
+        alt="background"
+        className="w-screen h-[calc(100vh-var(--navbar-height))] brightness-[.6]"
+      />
       <div className="absolute bottom-20">
         <div>
           <img src={MovieLogo} alt="Movie Logo" className="w-full h-full ml-20" />
