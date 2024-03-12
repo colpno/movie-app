@@ -35,9 +35,13 @@
   white-space: nowrap;
 }
 
+.btn + .btn {
+  margin-left: 0.3rem;
+}
+
 .btn-primary {
-  background-color: var(--btn-primary-color);
-  color: var(--btn-primary-text-color);
+  background-color: var(--btn-primary-color) !important;
+  color: var(--btn-primary-text-color) !important;
 }
 
 .btn-secondary {
@@ -50,6 +54,7 @@
 }
 
 .btn-sm {
+  padding: 0.1rem 0.2rem !important;
 }
 
 .btn-lg {
