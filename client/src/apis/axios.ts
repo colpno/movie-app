@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { API_URL } from '~/configs/common.ts';
+import queryClient from '~/lib/react-query/client.ts';
 import { emitToast } from '~/utils/toast.ts';
+import { userKeys } from './user/queryKey.ts';
 
 interface RequestResponse {
   message?: string;
@@ -35,5 +37,13 @@ axiosClient.interceptors.response.use(
     };
   }
 );
+
+axiosClient.interceptors.request.use((config) => {
+  const token = queryClient.getQueryData(userKeys.apiToken());
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export default axiosClient;
