@@ -1,26 +1,22 @@
 import { memo, useState } from 'react';
 
-import { useGetVideos } from '~/apis/video/getMultiple.ts';
-import { Genre, MediaType } from '~/types/common.ts';
+import { Genre } from '~/types/common.ts';
 
 interface SelectGenreProps {
   genres: Genre[];
-  mediaType: MediaType;
+  onChange?: (genre: string) => void;
 }
 
-function SelectGenre({ genres, mediaType }: SelectGenreProps) {
+function SelectGenre({ genres, onChange }: SelectGenreProps) {
   const [genre, setGenre] = useState({ label: genres[0].name, value: `${genres[0].id}` });
-
-  useGetVideos({
-    mediaType,
-    params: {
-      with_genres: genre.value,
-    },
-  });
 
   const handleChange = (newValue: string) => {
     const label = genres.find((gen) => `${gen.id}` === newValue)!.name;
     setGenre({ label, value: newValue });
+
+    if (onChange) {
+      onChange(newValue);
+    }
   };
 
   return (

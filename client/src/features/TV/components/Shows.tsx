@@ -1,38 +1,53 @@
+import { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
+import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
+import Button from '~/components/Button/Button.tsx';
 import CardSlider from '~/components/CardSlider.tsx';
-import { Loader } from '../loader.ts';
+import useObserver from '~/hooks/userObserver.ts';
+import { Genre } from '~/types/common.ts';
+import TVContext from '../context/TVContext.ts';
+
+interface Loader {
+  genres: Genre[];
+}
 
 function Shows() {
-  const { tvs, genres } = useLoaderData() as Loader;
+  const { genre } = useContext(TVContext);
+  const { genres } = useLoaderData() as Loader;
+  const {
+    data: response,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetInfiniteVideos({
+    mediaType: 'tv',
+    params: { with_genres: genre! },
+    queryOptions: { enabled: !!genre },
+  });
+  const tvs = response?.pages.flatMap((page) => page.results) ?? [];
+  const reachEndElement = useObserver<HTMLDivElement>(fetchNextPage);
 
-  const getMoviesFromRange = (from: number, to: number) => {
-    return tvs.slice(from, to);
-  };
+  // Divide tvs into chunks of 10
+  const tvChunks = [];
+  for (let i = 0; i < tvs.length; i += 10) {
+    tvChunks.push(tvs.slice(i, i + 10));
+  }
 
   return (
     <div>
-      {tvs.length ? (
-        <>
-          <CardSlider data={getMoviesFromRange(0, 10)} title="Trending Now" genres={genres} />
-          <CardSlider data={getMoviesFromRange(10, 20)} title="New Releases" genres={genres} />
-          <CardSlider
-            data={getMoviesFromRange(20, 30)}
-            title="Blockbuster Movies"
-            genres={genres}
-          />
-          <CardSlider
-            data={getMoviesFromRange(30, 40)}
-            title="Popular on Netflix"
-            genres={genres}
-          />
-          <CardSlider data={getMoviesFromRange(40, 50)} title="Action Movies" genres={genres} />
-          <CardSlider data={getMoviesFromRange(50, 60)} title="Epics" genres={genres} />
-        </>
+      {tvs.length > 0 ? (
+        tvChunks.map((chunk) => <CardSlider data={chunk} genres={genres} />)
       ) : (
         <h1 className="text-center mt-16">
           No TV Shows avaialble for the selected genre. Please select a different genre.
         </h1>
+      )}
+      {isFetchingNextPage ? (
+        <div>Loading...</div>
+      ) : (
+        <div ref={reachEndElement}>
+          <Button onClick={() => fetchNextPage()}>Load more</Button>{' '}
+        </div>
       )}
     </div>
   );

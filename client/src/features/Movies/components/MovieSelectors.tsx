@@ -2,15 +2,15 @@ import { useContext, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import SelectGenre from '~/components/SelectGenre.tsx';
-import TVContext from '../context/TVContext.ts';
+import MovieContext from '../context/MovieContext.ts';
 import { Loader } from '../loader.ts';
 
-function ShowSelectors() {
+function MovieSelectors() {
+  const { setGenre } = useContext(MovieContext);
   const { genres } = useLoaderData() as Loader;
-  const { setGenre } = useContext(TVContext);
 
-  const handleChange = (newGenre: string) => {
-    setGenre(newGenre);
+  const handleChange = (genreId: string) => {
+    setGenre(genreId);
   };
 
   useEffect(() => {
@@ -20,4 +20,4 @@ function ShowSelectors() {
   return <SelectGenre genres={genres} onChange={handleChange} />;
 }
 
-export default ShowSelectors;
+export default MovieSelectors;
