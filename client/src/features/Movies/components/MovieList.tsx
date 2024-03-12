@@ -32,7 +32,7 @@ function MovieList() {
   return (
     <div>
       {movieChunks.map((chunk, index) => (
-        <CardSlider key={index} data={chunk} genres={genres} />
+        <CardSlider data={chunk} genres={genres} key={`movie-row-${index}`} />
       ))}
 
       <div ref={reachEndElement}>

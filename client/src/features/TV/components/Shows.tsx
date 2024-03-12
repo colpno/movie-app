@@ -36,7 +36,9 @@ function Shows() {
   return (
     <div>
       {tvs.length > 0 ? (
-        tvChunks.map((chunk) => <CardSlider data={chunk} genres={genres} />)
+        tvChunks.map((chunk, index) => (
+          <CardSlider data={chunk} genres={genres} key={`tv-row-${index}`} />
+        ))
       ) : (
         <h1 className="text-center mt-16">
           No TV Shows avaialble for the selected genre. Please select a different genre.
