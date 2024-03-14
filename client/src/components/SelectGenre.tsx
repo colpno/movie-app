@@ -1,39 +1,25 @@
-import { memo, useState } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Genre } from '~/types/common.ts';
+import { SelectOption } from '~/types/form.ts';
+import Select from './Select';
 
 interface SelectGenreProps {
   genres: Genre[];
-  onChange?: (genre: string) => void;
+  onChange: (genre: string) => void;
 }
 
 function SelectGenre({ genres, onChange }: SelectGenreProps) {
-  const [genre, setGenre] = useState({ label: genres[0].name, value: `${genres[0].id}` });
+  const selectOptions = useMemo(
+    () => genres.map((genre) => ({ label: genre.name, value: `${genre.id}` })),
+    [genres]
+  );
 
-  const handleChange = (newValue: string) => {
-    const label = genres.find((gen) => `${gen.id}` === newValue)!.name;
-    setGenre({ label, value: newValue });
-
-    if (onChange) {
-      onChange(newValue);
-    }
+  const handleChange = (option: SelectOption) => {
+    onChange(option.value);
   };
 
-  return (
-    <select
-      className="flex ml-20 cursor-pointer text-[1.4rem] bg-[#00000066] text-white"
-      value={genre.value}
-      onChange={(e) => handleChange(e.target.value)}
-    >
-      {genres.map((genre) => {
-        return (
-          <option value={genre.id} key={genre.id}>
-            {genre.name}
-          </option>
-        );
-      })}
-    </select>
-  );
+  return <Select onChange={handleChange} options={selectOptions} />;
 }
 
 export default memo(SelectGenre);
