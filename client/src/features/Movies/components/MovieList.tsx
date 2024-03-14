@@ -10,7 +10,7 @@ import { Loader } from '../loader.ts';
 
 function MovieList() {
   const { genre } = useContext(MovieContext);
-  const { genres } = useLoaderData() as Loader;
+  const { genres, favorites } = useLoaderData() as Loader;
   const {
     data: response,
     fetchNextPage,
@@ -18,7 +18,7 @@ function MovieList() {
   } = useGetInfiniteVideos({
     mediaType: 'movie',
     params: { with_genres: genre! },
-    queryOptions: { enabled: !!genre },
+    queryOptions: { enabled: !!genre, queryKey: [genre!] },
   });
   const movies = response?.pages.flatMap((page) => page.results) ?? [];
   const reachEndElement = useObserver<HTMLDivElement>(fetchNextPage);
@@ -32,7 +32,7 @@ function MovieList() {
   return (
     <div>
       {movieChunks.map((chunk, index) => (
-        <CardSlider data={chunk} genres={genres} key={`movie-row-${index}`} />
+        <CardSlider data={chunk} genres={genres} key={`movie-row-${index}`} favorites={favorites} />
       ))}
 
       <div ref={reachEndElement}>

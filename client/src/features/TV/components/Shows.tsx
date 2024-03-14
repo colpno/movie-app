@@ -5,16 +5,12 @@ import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import Button from '~/components/Button/Button.tsx';
 import CardSlider from '~/components/CardSlider.tsx';
 import useObserver from '~/hooks/userObserver.ts';
-import { Genre } from '~/types/common.ts';
 import TVContext from '../context/TVContext.ts';
-
-interface Loader {
-  genres: Genre[];
-}
+import { Loader } from '../loader.ts';
 
 function Shows() {
   const { genre } = useContext(TVContext);
-  const { genres } = useLoaderData() as Loader;
+  const { genres, favorites } = useLoaderData() as Loader;
   const {
     data: response,
     fetchNextPage,
@@ -22,7 +18,7 @@ function Shows() {
   } = useGetInfiniteVideos({
     mediaType: 'tv',
     params: { with_genres: genre! },
-    queryOptions: { enabled: !!genre },
+    queryOptions: { enabled: !!genre, queryKey: [genre!] },
   });
   const tvs = response?.pages.flatMap((page) => page.results) ?? [];
   const reachEndElement = useObserver<HTMLDivElement>(fetchNextPage);
@@ -37,7 +33,7 @@ function Shows() {
     <div>
       {tvs.length > 0 ? (
         tvChunks.map((chunk, index) => (
-          <CardSlider data={chunk} genres={genres} key={`tv-row-${index}`} />
+          <CardSlider data={chunk} genres={genres} key={`tv-row-${index}`} favorites={favorites} />
         ))
       ) : (
         <h1 className="text-center mt-16">
