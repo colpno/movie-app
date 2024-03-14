@@ -24,10 +24,10 @@ const playerPageLoader = async () => {
 
   if (video) {
     const trailerLoader = getTrailerLoader({ mediaType: video.mediaType, id: video.id });
-    const trailer = await trailerLoader();
+    const trailers = await trailerLoader();
 
     return json({
-      trailer: trailer[0],
+      trailers,
     });
   }
 

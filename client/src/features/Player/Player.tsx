@@ -1,11 +1,20 @@
+import { useLoaderData } from 'react-router-dom';
+
+import { Response } from '~/apis/video/getTrailer.ts';
 import GoBackButton from './components/GoBackButton';
-import Video from './components/Video';
+import PlayerVideo from './components/PlayerVideo';
+
+interface Loader {
+  trailers?: Response['data']['results'];
+}
 
 function Player() {
+  const { trailers } = useLoaderData() as Loader;
+
   return (
     <div className="bg-black w-screen h-screen">
       <GoBackButton />
-      <Video />
+      <PlayerVideo trailers={trailers} />
     </div>
   );
 }
