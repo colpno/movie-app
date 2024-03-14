@@ -1,13 +1,15 @@
 import { createContext } from 'react';
 
+import { Genre } from '~/types/common.ts';
+
 interface TVContextType {
-  genre: string | null;
-  setGenre: (genre: string) => void;
+  selectedGenre: Genre | null;
+  setSelectedGenre: (genre: Genre) => void;
 }
 
 const TVContext = createContext<TVContextType>({
-  genre: null,
-  setGenre: () => {},
+  selectedGenre: null,
+  setSelectedGenre: () => {},
 });
 
 export default TVContext;

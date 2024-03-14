@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import SelectGenre from '~/components/SelectGenre.tsx';
@@ -7,17 +7,9 @@ import { Loader } from '../loader.ts';
 
 function ShowSelectors() {
   const { genres } = useLoaderData() as Loader;
-  const { setGenre } = useContext(TVContext);
+  const { setSelectedGenre } = useContext(TVContext);
 
-  const handleChange = (newGenre: string) => {
-    setGenre(newGenre);
-  };
-
-  useEffect(() => {
-    setGenre(genres[0].id.toString());
-  }, [genres, setGenre]);
-
-  return <SelectGenre genres={genres} onChange={handleChange} />;
+  return <SelectGenre genres={genres} onChange={setSelectedGenre} />;
 }
 
 export default ShowSelectors;

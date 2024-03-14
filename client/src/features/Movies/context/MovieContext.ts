@@ -1,13 +1,15 @@
 import { createContext } from 'react';
 
+import { Genre } from '~/types/common.ts';
+
 interface MovieContextType {
-  genre: string | null;
-  setGenre: (genreId: string) => void;
+  selectedGenre: Genre | null;
+  setSelectedGenre: (genre: Genre) => void;
 }
 
 export const movieContextStates: MovieContextType = {
-  genre: null,
-  setGenre: () => {},
+  selectedGenre: null,
+  setSelectedGenre: () => {},
 };
 
 const MovieContext = createContext<MovieContextType>(movieContextStates);

@@ -9,7 +9,7 @@ import TVContext from '../context/TVContext.ts';
 import { Loader } from '../loader.ts';
 
 function Shows() {
-  const { genre } = useContext(TVContext);
+  const { selectedGenre: genre } = useContext(TVContext);
   const { genres, favorites } = useLoaderData() as Loader;
   const {
     data: response,

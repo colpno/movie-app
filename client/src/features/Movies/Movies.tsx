@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
+import { Genre } from '~/types/common.ts';
 import MovieList from './components/MovieList';
 import MovieSelectors from './components/MovieSelectors';
 import MovieContext from './context/MovieContext.ts';
 
 function Movies() {
-  const [genre, setGenre] = useState<string | null>(null);
+  const [genre, setGenre] = useState<Genre | null>(null);
 
   return (
-    <MovieContext.Provider value={{ genre, setGenre }}>
+    <MovieContext.Provider value={{ selectedGenre: genre, setSelectedGenre: setGenre }}>
       <div>
         <MovieSelectors />
         <MovieList />

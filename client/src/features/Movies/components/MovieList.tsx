@@ -9,7 +9,7 @@ import MovieContext from '../context/MovieContext.ts';
 import { Loader } from '../loader.ts';
 
 function MovieList() {
-  const { genre } = useContext(MovieContext);
+  const { selectedGenre: genre } = useContext(MovieContext);
   const { genres, favorites } = useLoaderData() as Loader;
   const {
     data: response,
