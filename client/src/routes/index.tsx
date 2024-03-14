@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.tsx';
+import HomeLayout from '~/layouts/DefaultLayout/HomeLayout.tsx';
 import LoginLayout from '~/layouts/LoginLayout/LoginLayout.tsx';
 import LoginPage from '~/pages/Login.tsx';
 import NotFound from '~/pages/NotFound.tsx';
@@ -10,10 +11,10 @@ import ProtectedRoutes from './ProtectedRoutes.tsx';
 export const routes = createBrowserRouter([
   {
     path: '/',
-    element: <DefaultLayout />,
+    element: <ProtectedRoutes />,
     children: [
       {
-        element: <ProtectedRoutes />,
+        element: <DefaultLayout />,
         children: [
           {
             path: 'tv',
@@ -30,8 +31,13 @@ export const routes = createBrowserRouter([
         ],
       },
       {
-        index: true,
-        lazy: () => import('src/pages/Home.tsx'),
+        element: <HomeLayout />,
+        children: [
+          {
+            index: true,
+            lazy: () => import('src/pages/Home.tsx'),
+          },
+        ],
       },
     ],
   },
