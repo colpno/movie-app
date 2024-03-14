@@ -1,4 +1,10 @@
-import { AnchorHTMLAttributes, ButtonHTMLAttributes, ElementType, HTMLAttributes } from 'react';
+import {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  HTMLAttributes,
+  ReactNode,
+} from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
 import './styles/Button.css';
@@ -7,7 +13,7 @@ type Variant = 'primary' | 'secondary' | 'text';
 type Size = 'xs' | 'sm' | 'lg' | 'xl';
 
 type BaseProps = {
-  children?: JSX.Element | JSX.Element[] | Element | Element[] | string;
+  children?: ReactNode | ReactNode[];
   to?: string;
   href?: string;
   variant?: Variant | `outline-${Variant}`;
