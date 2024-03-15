@@ -17,8 +17,8 @@ function Shows() {
     isFetchingNextPage,
   } = useGetInfiniteVideos({
     mediaType: 'tv',
-    params: { with_genres: genre! },
-    queryOptions: { enabled: !!genre, queryKey: [genre!] },
+    params: { with_genres: `${genre!.id}` },
+    queryOptions: { enabled: !!genre, queryKey: [genre!.id] },
   });
   const tvs = response?.pages.flatMap((page) => page.results) ?? [];
   const reachEndElement = useObserver<HTMLDivElement>(fetchNextPage);

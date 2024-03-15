@@ -9,7 +9,12 @@ function ShowSelectors() {
   const { genres } = useLoaderData() as Loader;
   const { setSelectedGenre } = useContext(TVContext);
 
-  return <SelectGenre genres={genres} onChange={setSelectedGenre} />;
+  const handleChange = (genreId: string) => {
+    const genre = genres.find((genre) => `${genre.id}` === genreId)!;
+    setSelectedGenre(genre);
+  };
+
+  return <SelectGenre genres={genres} onChange={handleChange} />;
 }
 
 export default ShowSelectors;

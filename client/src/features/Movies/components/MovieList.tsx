@@ -17,8 +17,8 @@ function MovieList() {
     isFetchingNextPage,
   } = useGetInfiniteVideos({
     mediaType: 'movie',
-    params: { with_genres: genre! },
-    queryOptions: { enabled: !!genre, queryKey: [genre!] },
+    params: { with_genres: `${genre!.id}` },
+    queryOptions: { enabled: !!genre, queryKey: [genre!.id] },
   });
   const movies = response?.pages.flatMap((page) => page.results) ?? [];
   const reachEndElement = useObserver<HTMLDivElement>(fetchNextPage);

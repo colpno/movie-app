@@ -9,7 +9,12 @@ function MovieSelectors() {
   const { setSelectedGenre } = useContext(MovieContext);
   const { genres } = useLoaderData() as Loader;
 
-  return <SelectGenre genres={genres} onChange={setSelectedGenre} />;
+  const handleChange = (genreId: string) => {
+    const genre = genres.find((genre) => `${genre.id}` === genreId)!;
+    setSelectedGenre(genre);
+  };
+
+  return <SelectGenre genres={genres} onChange={handleChange} />;
 }
 
 export default MovieSelectors;
