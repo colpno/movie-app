@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import queryClient from '~/lib/react-query/client.ts';
 import { User } from '~/types/common.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { userKeys } from './queryKey.ts';
 
 type QueryOptions = UseQueryOptions<UseGetUserResponse['data']>;
@@ -16,7 +16,7 @@ export interface UseGetUserArgs extends Omit<GetUserArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface UseGetUserResponse extends SuccessfulResponse {
+export interface UseGetUserResponse extends ApiSuccessResponse {
   data?: User;
 }
 

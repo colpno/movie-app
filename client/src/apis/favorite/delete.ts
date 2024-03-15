@@ -2,14 +2,14 @@ import { useMutation } from '@tanstack/react-query';
 
 import queryClient from '~/lib/react-query/client.ts';
 import { emitToast } from '~/utils/toast.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
 export interface UseDeleteFavoriteArgs {
   id: number;
 }
 
-export interface UseDeleteFavoriteResponse extends SuccessfulResponse {
+export interface UseDeleteFavoriteResponse extends ApiSuccessResponse {
   message: string;
 }
 

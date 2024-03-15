@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import queryClient from '~/lib/react-query/client.ts';
 import { Favorite, MediaType } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
 export interface UseCreateFavoriteArgs {
@@ -14,7 +14,7 @@ export interface UseCreateFavoriteArgs {
   };
 }
 
-export interface UseCreateFavoriteResponse extends SuccessfulResponse {
+export interface UseCreateFavoriteResponse extends ApiSuccessResponse {
   message: string;
   data: Favorite;
 }

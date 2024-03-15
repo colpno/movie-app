@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import queryClient from '~/lib/react-query/client.ts';
 import { Favorite, Filter, Sorting } from '~/types/common.ts';
 import { SnakePropsToCamelProps } from '~/types/transformer.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
 type QueryOptions = UseQueryOptions<UseGetFavoritesResponse['data']>;
@@ -26,7 +26,7 @@ export interface UseGetFavoritesArgs extends Omit<GetFavoritesArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface UseGetFavoritesResponse extends SuccessfulResponse {
+export interface UseGetFavoritesResponse extends ApiSuccessResponse {
   data: Favorite[];
 }
 

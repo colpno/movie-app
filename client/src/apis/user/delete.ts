@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import axiosClient, { SuccessfulResponse } from '~/apis/axios.ts';
+import axiosClient, { ApiSuccessResponse } from '~/apis/axios.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
@@ -10,7 +10,7 @@ export interface UseDeleteUserArgs {
   id: number;
 }
 
-export interface UseDeleteUserResponse extends SuccessfulResponse {
+export interface UseDeleteUserResponse extends ApiSuccessResponse {
   message: string;
   data: User;
 }

@@ -1,7 +1,7 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import { MediaType, Movie, TV } from '~/types/common.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { videoKeys } from './queryKey.ts';
 
 type QueryOptions<T> = UseQueryOptions<UseGetVideoResponse<T>['data']>;
@@ -16,7 +16,7 @@ export interface UseGetVideoArgs<T extends MediaType> extends Omit<GetVideoArgs<
   queryOptions?: Omit<QueryOptions<T>, 'queryKey'>;
 }
 
-export interface UseGetVideoResponse<T> extends SuccessfulResponse {
+export interface UseGetVideoResponse<T> extends ApiSuccessResponse {
   data?: T extends 'movie' ? Movie : T extends 'tv' ? TV : never;
 }
 

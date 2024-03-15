@@ -36,7 +36,7 @@ type UseGetInfiniteVideosArgs<T extends MediaType> = Omit<UseGetVideosArgs<T>, '
       | 'throwOnError'
     >
   > & {
-    queryKey?: (string | number)[];
+    queryKey?: unknown[];
   };
 };
 

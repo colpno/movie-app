@@ -2,10 +2,10 @@ import { useMutation } from '@tanstack/react-query';
 
 import queryClient from '~/lib/react-query/client.ts';
 import { emitToast } from '~/utils/toast.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { userKeys } from '../user/queryKey.ts';
 
-export interface UseLogoutResponse extends SuccessfulResponse {
+export interface UseLogoutResponse extends ApiSuccessResponse {
   message: string;
 }
 

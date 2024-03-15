@@ -2,7 +2,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import queryClient from '~/lib/react-query/client.ts';
 import { Genre, MediaType } from '~/types/common.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { genreKeys } from './queryKey.ts';
 
 type QueryOptions = UseQueryOptions<UseGetGenresResponse['data']>;
@@ -22,7 +22,7 @@ export interface UseGetGenresArgs extends Omit<GetGenresArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface UseGetGenresResponse extends SuccessfulResponse {
+export interface UseGetGenresResponse extends ApiSuccessResponse {
   data: Genre[];
 }
 

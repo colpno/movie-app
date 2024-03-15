@@ -4,7 +4,7 @@ import { SERVER_URL } from '~/configs/common.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
-import axiosClient, { SuccessfulResponse } from '../axios.ts';
+import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { userKeys } from '../user/queryKey.ts';
 
 export interface UseLoginArgs {
@@ -12,7 +12,7 @@ export interface UseLoginArgs {
   password: string;
 }
 
-export interface UseLoginResponse extends SuccessfulResponse {
+export interface UseLoginResponse extends ApiSuccessResponse {
   message: string;
   data: {
     user: User;
