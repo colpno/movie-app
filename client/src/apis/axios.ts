@@ -5,16 +5,16 @@ import queryClient from '~/lib/react-query/client.ts';
 import { emitToast } from '~/utils/toast.ts';
 import { userKeys } from './user/queryKey.ts';
 
-interface RequestResponse {
+interface ApiResponse {
   message?: string;
   data?: unknown;
 }
 
-export interface SuccessfulResponse extends RequestResponse {
+export interface ApiSuccessResponse extends ApiResponse {
   success: boolean;
 }
 
-interface ErrorResponse extends RequestResponse {
+export interface ApiError extends ApiResponse {
   httpCode: number;
   message: string;
 }
@@ -27,16 +27,18 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => response.data,
-  (error: AxiosError<RequestResponse>): ErrorResponse => {
+  (error: AxiosError<ApiResponse>): ApiError => {
     const message = error.response?.data.message ?? error.message;
     const code = error.response?.status || 500;
 
     if (error.code !== 'ERR_CANCELED') emitToast(message, 'error');
 
-    return {
+    const errorResponse: ApiError = {
       httpCode: code,
       message,
     };
+
+    throw errorResponse;
   }
 );
 
