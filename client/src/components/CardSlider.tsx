@@ -14,7 +14,7 @@ interface CardSliderProps {
 function CardSlider({ title, data, genres, favorites }: CardSliderProps) {
   return (
     <div className="flex flex-col gap-4 relative py-8">
-      {title && <h1 className="ml-[50px]">{title}</h1>}
+      {title && <h1 className="ml-[50px] text-4xl text-white">{title}</h1>}
       <div>
         <Slider
           className="mx-[50px] pr-[50px]"
