@@ -26,7 +26,7 @@ Route::group(['prefix' => "v1"], function () {
 		Route::prefix('favorites')->controller(FavoriteController::class)->group(function () {
 			Route::get("/", 'index');
 			Route::post("/", 'store');
-			Route::delete("/", 'destroy');
+			Route::delete("/{favorite}", 'destroy');
 			Route::get("{mediaType}/{id}", 'show')->whereIn('mediaType', ['movie', 'tv'])->whereNumber('id');
 		});
 		Route::prefix("auth")->controller(AuthController::class)->group(function () {
