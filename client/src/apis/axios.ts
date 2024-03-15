@@ -30,7 +30,9 @@ axiosClient.interceptors.response.use(
   (error: AxiosError<RequestResponse>): ErrorResponse => {
     const message = error.response?.data.message ?? error.message;
     const code = error.response?.status || 500;
-    emitToast(message, 'error');
+
+    if (error.code !== 'ERR_CANCELED') emitToast(message, 'error');
+
     return {
       httpCode: code,
       message,
