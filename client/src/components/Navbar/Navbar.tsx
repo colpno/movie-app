@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/logo.png';
+import logo from '~/assets/logo.png';
 import NavbarLogout from './components/NavbarLogout';
 import NavbarNavigation from './components/NavbarNavigation.tsx';
 import NavbarSearch from './components/NavbarSearch';
