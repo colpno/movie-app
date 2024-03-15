@@ -6,7 +6,7 @@ import Select from './Select';
 
 interface SelectGenreProps {
   genres: Genre[];
-  onChange: (genre: string) => void;
+  onChange: (genreId: string) => void;
 }
 
 function SelectGenre({ genres, onChange }: SelectGenreProps) {
