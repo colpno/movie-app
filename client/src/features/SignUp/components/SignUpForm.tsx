@@ -17,7 +17,7 @@ function SignUpForm() {
 
   const handleSignIn = async () => {
     const { email, password } = formValues;
-    register({ email, password });
+    register({ data: { email, password } });
   };
 
   useEffect(() => {

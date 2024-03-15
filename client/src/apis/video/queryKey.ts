@@ -1,6 +1,6 @@
 import { MediaType } from '~/types/common.ts';
-import { Args as GetAllArgs } from './getMultiple.ts';
-import { Args as SearchArgs } from './search.ts';
+import { UseGetVideosArgs as GetAllArgs } from './getMultiple.ts';
+import { UseSearchVideoArgs as SearchArgs } from './search.ts';
 
 type Filter<T extends MediaType> = GetAllArgs<T>['params'] | SearchArgs<T>['params'];
 

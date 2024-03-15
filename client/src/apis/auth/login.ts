@@ -7,12 +7,12 @@ import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { userKeys } from '../user/queryKey.ts';
 
-export interface LoginCredentials {
+export interface UseLoginArgs {
   email: string;
   password: string;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseLoginResponse extends SuccessfulResponse {
   message: string;
   data: {
     user: User;
@@ -20,9 +20,9 @@ export interface Response extends SuccessfulResponse {
   };
 }
 
-const login = async (credentials: LoginCredentials) => {
+const login = async (credentials: UseLoginArgs) => {
   await axiosClient.get('sanctum/csrf-cookie', { baseURL: `${SERVER_URL}` });
-  return await axiosClient.post<never, Response>('auth/login', credentials);
+  return await axiosClient.post<never, UseLoginResponse>('auth/login', credentials);
 };
 
 export const useLogin = () =>

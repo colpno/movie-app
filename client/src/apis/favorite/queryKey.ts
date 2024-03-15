@@ -1,5 +1,5 @@
 import { MediaType } from '~/types/common.ts';
-import { Args as GetAllArgs } from './getMultiple.ts';
+import { UseGetFavoritesArgs as GetAllArgs } from './getMultiple.ts';
 
 export const favoriteKeys = {
   all: ['favorites'] as const,

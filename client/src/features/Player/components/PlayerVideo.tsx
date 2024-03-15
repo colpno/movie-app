@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
-import { Response } from '~/apis/video/getTrailer.ts';
+import { UseGetTrailersResponse } from '~/apis/video/getTrailer.ts';
 import { Trailer } from '~/types/common.ts';
 
 interface PlayerVideoProps {
-  trailers?: Response['data']['results'];
+  trailers?: UseGetTrailersResponse['data']['results'];
   className?: string;
 }
 

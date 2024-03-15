@@ -6,19 +6,19 @@ import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { userKeys } from './queryKey.ts';
 
-export interface Args {
+export interface UseUpdateUserArgs {
   id: number;
   data: User;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseUpdateUserResponse extends SuccessfulResponse {
   message: string;
   data: User;
 }
 
-const updateUser = async ({ id, data }: Args) => {
+const updateUser = async ({ id, data }: UseUpdateUserArgs) => {
   const BASE_URL = `users/${id}`;
-  return await axiosClient.put<never, Response>(BASE_URL, data);
+  return await axiosClient.put<never, UseUpdateUserResponse>(BASE_URL, data);
 };
 
 export const useUpdateUser = () =>

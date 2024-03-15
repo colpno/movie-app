@@ -1,11 +1,11 @@
 import { useLoaderData } from 'react-router-dom';
 
-import { Response } from '~/apis/video/getTrailer.ts';
+import { UseGetTrailersResponse } from '~/apis/video/getTrailer.ts';
 import GoBackButton from './components/GoBackButton';
 import PlayerVideo from './components/PlayerVideo';
 
 interface Loader {
-  trailers?: Response['data']['results'];
+  trailers?: UseGetTrailersResponse['data']['results'];
 }
 
 function Player() {

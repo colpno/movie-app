@@ -6,7 +6,7 @@ import { SnakePropsToCamelProps } from '~/types/transformer.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
-type QueryOptions = UseQueryOptions<Response['data']>;
+type QueryOptions = UseQueryOptions<UseGetFavoritesResponse['data']>;
 
 type Params = {
   embed?: string[];
@@ -17,34 +17,38 @@ type Params = {
   [K in keyof SnakePropsToCamelProps<Favorite>]?: Filter;
 };
 
-export interface Args {
+export interface GetFavoritesArgs {
   params?: Params;
+  signal: AbortSignal;
+}
+
+export interface UseGetFavoritesArgs extends Omit<GetFavoritesArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseGetFavoritesResponse extends SuccessfulResponse {
   data: Favorite[];
 }
 
-const getFavorites = async (params?: Args['params']) => {
+const getFavorites = async ({ signal, ...params }: GetFavoritesArgs) => {
   const BASE_URL = 'favorites';
-  return (await axiosClient.get<never, Response>(BASE_URL, { params })).data;
+  return (await axiosClient.get<never, UseGetFavoritesResponse>(BASE_URL, { params, signal })).data;
 };
 
-const getFavoritesQuery = (args?: Args): QueryOptions => {
+const getFavoritesQuery = (args?: UseGetFavoritesArgs): QueryOptions => {
   const { params, queryOptions } = args!;
   return {
     ...queryOptions,
     initialData: [],
-    queryFn: () => getFavorites(params),
+    queryFn: ({ signal }) => getFavorites({ ...params, signal }),
     queryKey: params ? favoriteKeys.list(params) : favoriteKeys.all,
   };
 };
 
-export const useGetFavorites = (args?: Args) => useQuery(getFavoritesQuery(args));
+export const useGetFavorites = (args?: UseGetFavoritesArgs) => useQuery(getFavoritesQuery(args));
 
-export const favoritesLoader = (args?: Args) => async () => {
+export const favoritesLoader = (args?: UseGetFavoritesArgs) => async () => {
   const query = getFavoritesQuery(args);
   return ((await queryClient.getQueryData(query.queryKey!)) ??
-    (await queryClient.fetchQuery(query))) as Response['data'];
+    (await queryClient.fetchQuery(query))) as UseGetFavoritesResponse['data'];
 };

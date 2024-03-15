@@ -5,33 +5,37 @@ import { User } from '~/types/common.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { userKeys } from './queryKey.ts';
 
-type QueryOptions = UseQueryOptions<Response['data']>;
+type QueryOptions = UseQueryOptions<UseGetUserResponse['data']>;
 
-export interface Args {
+interface GetUserArgs {
   id: number;
+  signal: AbortSignal;
+}
+
+export interface UseGetUserArgs extends Omit<GetUserArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseGetUserResponse extends SuccessfulResponse {
   data?: User;
 }
 
-const getUser = async ({ id }: Args) => {
+const getUser = async ({ id, signal }: GetUserArgs) => {
   const BASE_URL = `users/${id}`;
-  return (await axiosClient.get<never, Response>(BASE_URL)).data;
+  return (await axiosClient.get<never, UseGetUserResponse>(BASE_URL, { signal })).data;
 };
 
-const getUserQuery = (args: Args): QueryOptions => ({
+const getUserQuery = (args: UseGetUserArgs): QueryOptions => ({
   initialData: undefined,
-  queryFn: () => getUser(args),
+  queryFn: ({ signal }) => getUser({ ...args, signal }),
   queryKey: userKeys.detail,
   ...args.queryOptions,
 });
 
-export const useGetUser = (args: Args) => useQuery(getUserQuery(args));
+export const useGetUser = (args: UseGetUserArgs) => useQuery(getUserQuery(args));
 
-export const userLoader = (args: Args) => async () => {
+export const userLoader = (args: UseGetUserArgs) => async () => {
   const query = getUserQuery(args);
   return ((await queryClient.getQueryData(userKeys.detail)) ??
-    (await queryClient.fetchQuery(query))) as Response['data'];
+    (await queryClient.fetchQuery(query))) as UseGetUserResponse['data'];
 };

@@ -96,7 +96,7 @@ interface TVResponse {
   total_results: number;
 }
 
-type QueryOptions<T extends MediaType> = UseQueryOptions<Response<T>['data']>;
+type QueryOptions<T extends MediaType> = UseQueryOptions<UseGetVideosResponse<T>['data']>;
 
 type Params<T extends MediaType> = T extends 'movie'
   ? MovieParams
@@ -104,37 +104,41 @@ type Params<T extends MediaType> = T extends 'movie'
   ? TVParams
   : never;
 
-export interface Args<T extends MediaType> {
+interface GetVideosArgs<T extends MediaType> {
   mediaType: T;
   params?: Params<T>;
+  signal: AbortSignal;
+}
+
+export interface UseGetVideosArgs<T extends MediaType> extends Omit<GetVideosArgs<T>, 'signal'> {
   queryOptions?: QueryOptions<T>;
 }
 
-export type Response<T> = {
+export type UseGetVideosResponse<T> = {
   data: T extends 'movie' ? MovieResponse : T extends 'tv' ? TVResponse : never;
 };
 
-const getVideos = async <T extends MediaType>({ mediaType, params }: Args<T>) => {
+const getVideos = async <T extends MediaType>({ mediaType, params, signal }: GetVideosArgs<T>) => {
   const BASE_URL = mediaType;
-  return (await axiosClient.get<never, Response<T>>(BASE_URL, { params })).data;
+  return (await axiosClient.get<never, UseGetVideosResponse<T>>(BASE_URL, { params, signal })).data;
 };
 
-const getVideosQuery = <T extends MediaType>(args: Args<T>) => {
+const getVideosQuery = <T extends MediaType>(args: UseGetVideosArgs<T>): QueryOptions<T> => {
   const { params, mediaType, queryOptions } = args;
   return {
     ...queryOptions,
-    queryFn: () => getVideos<T>(args),
+    queryFn: ({ signal }) => getVideos<T>({ ...args, signal }),
     queryKey: params ? videoKeys.list(mediaType, params) : videoKeys.lists(mediaType),
   };
 };
 
-export const useGetVideos = <T extends MediaType>(args: Args<T>) =>
+export const useGetVideos = <T extends MediaType>(args: UseGetVideosArgs<T>) =>
   useQuery(getVideosQuery<T>(args));
 
 export const videosLoader =
-  <T extends MediaType>(args: Args<T>) =>
+  <T extends MediaType>(args: UseGetVideosArgs<T>) =>
   async () => {
     const query = getVideosQuery<T>(args);
     return ((await queryClient.getQueryData(query.queryKey ?? `${args.mediaType}s`)) ??
-      (await queryClient.fetchQuery(query))) as Response<T>['data'];
+      (await queryClient.fetchQuery(query))) as UseGetVideosResponse<T>['data'];
   };

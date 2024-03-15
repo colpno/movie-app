@@ -1,22 +1,25 @@
-import {
-  QueryFunctionContext,
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-} from '@tanstack/react-query';
+import { useInfiniteQuery, UseInfiniteQueryOptions } from '@tanstack/react-query';
 
 import { MediaType } from '~/types/common.ts';
+import { InfiniteQueryFunctionParams } from '~/types/reactQuery.ts';
 import axiosClient from '../axios.ts';
-import { Args as BaseArgs, Response } from './getMultiple.ts';
+import { UseGetVideosArgs, UseGetVideosResponse } from './getMultiple.ts';
 import { videoKeys } from './queryKey.ts';
 
-type QueryOptions<T> = UseInfiniteQueryOptions<Response<T>>;
-type QueryFnParams<T extends MediaType> = QueryFunctionContext<QueryOptions<T>['queryKey'], number>;
-type AxiosQueryArgs<T extends MediaType> = Omit<Args<T>, 'queryOptions'> & QueryFnParams<T>;
+type QueryOptions<T> = UseInfiniteQueryOptions<UseGetVideosResponse<T>>;
+type QueryFnParams<T extends MediaType> = InfiniteQueryFunctionParams<QueryOptions<T>['queryKey']>;
 
-type Args<T extends MediaType> = Omit<BaseArgs<T>, 'queryOptions'> & {
+type GetInfiniteVideosArgs<T extends MediaType> = Omit<
+  UseGetInfiniteVideosArgs<T>,
+  'queryOptions'
+> &
+  QueryFnParams<T>;
+
+type UseGetInfiniteVideosArgs<T extends MediaType> = Omit<UseGetVideosArgs<T>, 'queryOptions'> & {
   queryOptions?: Partial<
     Omit<
       QueryOptions<T>,
+      | 'queryKey'
       | 'queryFn'
       | 'getNextPageParam'
       | 'getPreviousPageParam'
@@ -32,7 +35,9 @@ type Args<T extends MediaType> = Omit<BaseArgs<T>, 'queryOptions'> & {
       | 'select'
       | 'throwOnError'
     >
-  >;
+  > & {
+    queryKey?: (string | number)[];
+  };
 };
 
 const getVideos = async <T extends MediaType>({
@@ -40,25 +45,25 @@ const getVideos = async <T extends MediaType>({
   params,
   pageParam,
   signal,
-}: AxiosQueryArgs<T>) => {
+}: GetInfiniteVideosArgs<T>) => {
   return (
-    await axiosClient.get<{ page: number }, Response<T>>(mediaType, {
+    await axiosClient.get<{ page: number }, UseGetVideosResponse<T>>(mediaType, {
       params: { ...params, page: pageParam },
       signal,
     })
   ).data;
 };
 
-export const useGetInfiniteVideos = <T extends MediaType>(args: Args<T>) => {
+export const useGetInfiniteVideos = <T extends MediaType>(args: UseGetInfiniteVideosArgs<T>) => {
   const { mediaType, queryOptions } = args;
   return useInfiniteQuery({
     ...queryOptions,
     initialPageParam: 1,
     queryFn: (queryParams) => getVideos({ ...args, ...queryParams }),
-    queryKey: videoKeys.list(mediaType, { page: 1 }),
-    getNextPageParam: (lastPage: Response<T>['data']) =>
+    queryKey: [...videoKeys.list(mediaType, { page: 1 }), ...(queryOptions?.queryKey ?? [])],
+    getNextPageParam: (lastPage: UseGetVideosResponse<T>['data']) =>
       lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-    getPreviousPageParam: (firstPage: Response<T>['data']) =>
+    getPreviousPageParam: (firstPage: UseGetVideosResponse<T>['data']) =>
       firstPage.page > 1 ? firstPage.page - 1 : undefined,
   });
 };

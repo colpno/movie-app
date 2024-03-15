@@ -6,20 +6,22 @@ import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
-export interface CreateFavoriteData {
-  videoId: number;
-  mediaType: MediaType;
-  userId: number;
+export interface UseCreateFavoriteArgs {
+  data: {
+    videoId: number;
+    mediaType: MediaType;
+    userId: number;
+  };
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseCreateFavoriteResponse extends SuccessfulResponse {
   message: string;
   data: Favorite;
 }
 
-const createFavorite = async (data: CreateFavoriteData) => {
+const createFavorite = async ({ data }: UseCreateFavoriteArgs) => {
   const BASE_URL = 'favorites';
-  return await axiosClient.post<never, Response>(BASE_URL, data);
+  return await axiosClient.post<never, UseCreateFavoriteResponse>(BASE_URL, data);
 };
 
 export const useCreateFavorite = () =>

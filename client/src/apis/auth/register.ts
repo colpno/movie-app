@@ -4,19 +4,21 @@ import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 
-export interface RegisterData {
-  email: string;
-  password: string;
+export interface UseRegisterArgs {
+  data: {
+    email: string;
+    password: string;
+  };
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseRegisterResponse extends SuccessfulResponse {
   message: string;
   data: User;
 }
 
-const register = async (data: RegisterData) => {
+const register = async ({ data }: UseRegisterArgs) => {
   const BASE_URL = 'auth/register';
-  return await axiosClient.post<never, Response>(BASE_URL, data);
+  return await axiosClient.post<never, UseRegisterResponse>(BASE_URL, data);
 };
 
 export const useRegister = () =>

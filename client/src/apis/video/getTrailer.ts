@@ -1,53 +1,46 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 import queryClient from '~/lib/react-query/client.ts';
-import { MediaType } from '~/types/common.ts';
+import { MediaType, Trailer } from '~/types/common.ts';
 import axiosClient from '../axios.ts';
 import { videoKeys } from './queryKey.ts';
 
-type QueryOptions = UseQueryOptions<Response['data']['results']>;
+type QueryOptions = UseQueryOptions<UseGetTrailersResponse['data']['results']>;
 
-export interface Args {
+interface GetTrailersArgs {
   mediaType: MediaType;
   id: number;
-  queryOptions?: Omit<QueryOptions, 'queryKey'>;
+  signal: AbortSignal;
 }
 
-export interface Response {
+export interface UseGetTrailersArgs extends Omit<GetTrailersArgs, 'signal'> {
+  queryOptions?: QueryOptions;
+}
+
+export interface UseGetTrailersResponse {
   message: string;
   data: {
     id: number;
-    results: {
-      iso_639_1: string;
-      iso_3166_1: string;
-      name: string;
-      key: string;
-      site: string;
-      size: number;
-      type: string;
-      official: boolean;
-      published_at: string;
-      id: string;
-    }[];
+    results: Trailer[];
   };
 }
 
-const getTrailer = async ({ mediaType, id }: Args) => {
+const getTrailer = async ({ mediaType, id, signal }: GetTrailersArgs) => {
   const BASE_URL = `${mediaType}/${id}/trailer`;
-  return (await axiosClient.get<never, Response>(BASE_URL)).data.results;
+  return (await axiosClient.get<never, UseGetTrailersResponse>(BASE_URL, { signal })).data.results;
 };
 
-const getTrailerQuery = (args: Args): QueryOptions => ({
+const getTrailerQuery = (args: UseGetTrailersArgs): QueryOptions => ({
   ...args.queryOptions,
   initialData: undefined,
-  queryFn: () => getTrailer(args),
-  queryKey: videoKeys.trailer,
+  queryFn: ({ signal }) => getTrailer({ ...args, signal }),
+  queryKey: [...videoKeys.trailer, ...[args.queryOptions?.queryKey]],
 });
 
-export const useGetTrailer = (args: Args) => useQuery(getTrailerQuery(args));
+export const useGetTrailer = (args: UseGetTrailersArgs) => useQuery(getTrailerQuery(args));
 
-export const getTrailerLoader = (args: Args) => async () => {
+export const getTrailerLoader = (args: UseGetTrailersArgs) => async () => {
   const query = getTrailerQuery(args);
   return ((await queryClient.getQueryData(videoKeys.trailer)) ??
-    (await queryClient.fetchQuery(query))) as Response['data']['results'];
+    (await queryClient.fetchQuery(query))) as UseGetTrailersResponse['data']['results'];
 };

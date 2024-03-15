@@ -43,34 +43,43 @@ type Params<T extends MediaType> = T extends 'movie'
   ? TVParams
   : never;
 
-type QueryOptions<T extends MediaType> = UseQueryOptions<Response<T>>;
+type QueryOptions<T extends MediaType> = UseQueryOptions<UseSearchVideoResponse<T>>;
 
-export interface Args<T extends MediaType> {
+interface SearchVideoArgs<T extends MediaType> {
   mediaType: T;
   params?: Params<T>;
+  signal: AbortSignal;
+}
+
+export interface UseSearchVideoArgs<T extends MediaType>
+  extends Omit<SearchVideoArgs<T>, 'signal'> {
   queryOptions?: Omit<QueryOptions<T>, 'queryKey'>;
 }
 
-export type Response<T extends MediaType> = T extends 'movie'
+export type UseSearchVideoResponse<T extends MediaType> = T extends 'movie'
   ? MovieResponse
   : T extends 'tv'
   ? TVResponse
   : never;
 
-const searchVideos = async <T extends MediaType>({ mediaType, params }: Args<T>) => {
+const searchVideos = async <T extends MediaType>({
+  mediaType,
+  params,
+  signal,
+}: SearchVideoArgs<T>) => {
   const BASE_URL = `${mediaType}/search`;
-  return await axiosClient.get<never, Response<T>>(BASE_URL, { params });
+  return await axiosClient.get<never, UseSearchVideoResponse<T>>(BASE_URL, { params, signal });
 };
 
-const searchVideoQuery = <T extends MediaType>(args: Args<T>): QueryOptions<T> => {
+const searchVideoQuery = <T extends MediaType>(args: UseSearchVideoArgs<T>): QueryOptions<T> => {
   const { mediaType, params, queryOptions } = args;
   return {
     ...queryOptions,
     initialData: undefined,
-    queryFn: async () => await searchVideos<T>(args),
+    queryFn: async ({ signal }) => await searchVideos<T>({ ...args, signal }),
     queryKey: videoKeys.list(mediaType, params),
   };
 };
 
-export const useSearchVideos = <T extends MediaType>(args: Args<T>) =>
+export const useSearchVideos = <T extends MediaType>(args: UseSearchVideoArgs<T>) =>
   useQuery(searchVideoQuery(args));

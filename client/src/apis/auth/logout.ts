@@ -5,13 +5,13 @@ import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { userKeys } from '../user/queryKey.ts';
 
-export interface Response extends SuccessfulResponse {
+export interface UseLogoutResponse extends SuccessfulResponse {
   message: string;
 }
 
 const logout = () => {
   const BASE_URL = 'auth/logout';
-  return axiosClient.post<never, Response>(BASE_URL);
+  return axiosClient.post<never, UseLogoutResponse>(BASE_URL);
 };
 
 export const useLogout = () =>

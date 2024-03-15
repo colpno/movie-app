@@ -5,42 +5,46 @@ import { Genre, MediaType } from '~/types/common.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { genreKeys } from './queryKey.ts';
 
-type QueryOptions = UseQueryOptions<Response['data']>;
+type QueryOptions = UseQueryOptions<UseGetGenresResponse['data']>;
 
 interface Params {
   page?: number;
   sort_by?: string;
 }
 
-export interface Args {
+interface GetGenresArgs {
   mediaType: MediaType;
   params?: Params;
+  signal: AbortSignal;
+}
+
+export interface UseGetGenresArgs extends Omit<GetGenresArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseGetGenresResponse extends SuccessfulResponse {
   data: Genre[];
 }
 
-const getGenres = async ({ mediaType, params }: Args) => {
+const getGenres = async ({ mediaType, params, signal }: GetGenresArgs) => {
   const BASE_URL = `genres/${mediaType}`;
-  return (await axiosClient.get<never, Response>(BASE_URL, { params })).data;
+  return (await axiosClient.get<never, UseGetGenresResponse>(BASE_URL, { params, signal })).data;
 };
 
-const getGenresQuery = (args: Args): QueryOptions => {
+const getGenresQuery = (args: UseGetGenresArgs): QueryOptions => {
   const { mediaType, params, queryOptions } = args;
   return {
     ...queryOptions,
     initialData: [],
-    queryFn: async () => await getGenres(args),
+    queryFn: async ({ signal }) => await getGenres({ ...args, signal }),
     queryKey: params ? genreKeys.list(mediaType, params) : genreKeys.lists(mediaType),
   };
 };
 
-export const useGetGenres = (args: Args) => useQuery(getGenresQuery(args));
+export const useGetGenres = (args: UseGetGenresArgs) => useQuery(getGenresQuery(args));
 
-export const genresLoader = (args: Args) => async () => {
+export const genresLoader = (args: UseGetGenresArgs) => async () => {
   const query = getGenresQuery(args);
   return ((await queryClient.getQueryData(query.queryKey ?? 'genres')) ??
-    (await queryClient.fetchQuery(query))) as Response['data'];
+    (await queryClient.fetchQuery(query))) as UseGetGenresResponse['data'];
 };

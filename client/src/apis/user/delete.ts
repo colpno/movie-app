@@ -6,21 +6,21 @@ import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
 import { userKeys } from './queryKey.ts';
 
-export interface Args {
+export interface UseDeleteUserArgs {
   id: number;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseDeleteUserResponse extends SuccessfulResponse {
   message: string;
   data: User;
 }
 
-const deleteUser = async ({ id }: Args) => {
+const deleteUser = async ({ id }: UseDeleteUserArgs) => {
   const BASE_URL = `users/$${id}`;
-  return await axiosClient.delete<never, Response>(BASE_URL);
+  return await axiosClient.delete<never, UseDeleteUserResponse>(BASE_URL);
 };
 
-export const useDeleteUser = (args: Args) =>
+export const useDeleteUser = (args: UseDeleteUserArgs) =>
   useMutation({
     mutationFn: async () => await deleteUser(args),
     onSuccess: ({ message }) => {

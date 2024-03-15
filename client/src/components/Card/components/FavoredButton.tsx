@@ -1,13 +1,13 @@
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import { CreateFavoriteData } from '~/apis/favorite/create.ts';
+import { UseCreateFavoriteArgs } from '~/apis/favorite/create.ts';
 import { userKeys } from '~/apis/user/queryKey.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { User, Video } from '~/types/common.ts';
 
 interface FavoredButtonProps {
   video: Video;
-  onClick: (args: CreateFavoriteData) => void;
+  onClick: (args: UseCreateFavoriteArgs) => void;
 }
 
 function FavoredButton({ video, onClick }: FavoredButtonProps) {

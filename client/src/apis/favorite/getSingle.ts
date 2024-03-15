@@ -4,31 +4,35 @@ import { Favorite, MediaType } from '~/types/common.ts';
 import axiosClient, { SuccessfulResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
-type QueryOptions = UseQueryOptions<Response['data']>;
+type QueryOptions = UseQueryOptions<UseGetFavoriteResponse['data']>;
 
-export interface Args {
+interface GetFavoriteArgs {
   mediaType: MediaType;
   videoId: number;
+  signal: AbortSignal;
+}
+
+export interface UseGetFavoriteArgs extends Omit<GetFavoriteArgs, 'signal'> {
   queryOptions?: Omit<QueryOptions, 'queryKey'>;
 }
 
-export interface Response extends SuccessfulResponse {
+export interface UseGetFavoriteResponse extends SuccessfulResponse {
   data?: Favorite;
 }
 
-const getFavorite = async ({ mediaType, videoId }: Args) => {
+const getFavorite = async ({ mediaType, videoId, signal }: GetFavoriteArgs) => {
   const BASE_URL = `favorites/${mediaType}/${videoId}`;
-  return (await axiosClient.get<never, Response>(BASE_URL)).data;
+  return (await axiosClient.get<never, UseGetFavoriteResponse>(BASE_URL, { signal })).data;
 };
 
-const getFavoriteQuery = (args: Args): QueryOptions => {
+const getFavoriteQuery = (args: UseGetFavoriteArgs): QueryOptions => {
   const { mediaType, videoId, queryOptions } = args;
   return {
     ...queryOptions,
     initialData: undefined,
-    queryFn: () => getFavorite(args),
+    queryFn: ({ signal }) => getFavorite({ ...args, signal }),
     queryKey: favoriteKeys.detail(mediaType, videoId),
   };
 };
 
-export const useGetFavorite = (args: Args) => useQuery(getFavoriteQuery(args));
+export const useGetFavorite = (args: UseGetFavoriteArgs) => useQuery(getFavoriteQuery(args));
