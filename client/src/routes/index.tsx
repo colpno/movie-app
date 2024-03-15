@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.tsx';
-import HomeLayout from '~/layouts/DefaultLayout/HomeLayout.tsx';
-import LoginLayout from '~/layouts/LoginLayout/LoginLayout.tsx';
+import DefaultLayout from '~/layouts/DefaultLayout.tsx';
+import HomeLayout from '~/layouts/HomeLayout.tsx';
+import LoginLayout from '~/layouts/LoginLayout.tsx';
 import LoginPage from '~/pages/Login.tsx';
 import NotFound from '~/pages/NotFound.tsx';
 import SignUpPage from '~/pages/SignUp.tsx';

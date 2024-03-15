@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 
-import Navbar from '~/components/Navbar.tsx';
+import Header from '~/components/Header/Header.tsx';
 
-function HomeLayout() {
+function LoginLayout() {
   return (
     <>
-      <Navbar />
+      <Header />
       <main className="bg-black">
         <Outlet />
       </main>
@@ -13,4 +13,4 @@ function HomeLayout() {
   );
 }
 
-export default HomeLayout;
+export default LoginLayout;
