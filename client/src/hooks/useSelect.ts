@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { SelectOption } from '~/types/form.ts';
 
@@ -18,6 +18,10 @@ function useSelect({ options, onChange }: UseSelectProps) {
     setSelectedOption(selectedOption);
     onChange(selectedOption);
   };
+
+  useEffect(() => {
+    onChange(selectedOption);
+  }, [selectedOption, onChange]);
 
   return { option: selectedOption, handleChange };
 }
