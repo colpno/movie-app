@@ -7,13 +7,12 @@ function Toast() {
   return (
     <ToastContainer
       theme={theme}
-      position="top-right"
+      position="bottom-right"
       autoClose={5000}
       newestOnTop
       closeOnClick
       pauseOnFocusLoss
       pauseOnHover
-      stacked
       transition={Bounce}
       hideProgressBar={false}
       draggable={false}
