@@ -5,10 +5,10 @@ import DefaultLayout from '~/layouts/DefaultLayout.tsx';
 import HomeLayout from '~/layouts/HomeLayout.tsx';
 import LoginLayout from '~/layouts/LoginLayout.tsx';
 import ErrorBoundary from '~/pages/ErrorBoundary.tsx';
-import LoginPage from '~/pages/Login.tsx';
+import UserListedMoviePage from '~/pages/FavoritePage.tsx';
+import LoginPage from '~/pages/LoginPage.tsx';
 import NotFound from '~/pages/NotFound.tsx';
-import SignUpPage from '~/pages/SignUp.tsx';
-import UserListedMoviePage from '~/pages/UserListedMovies.tsx';
+import SignUpPage from '~/pages/SignUpPage.tsx';
 import ProtectedRoutes from './ProtectedRoutes.tsx';
 
 export const router = createBrowserRouter([
@@ -24,11 +24,11 @@ export const router = createBrowserRouter([
             children: [
               {
                 path: path.TV,
-                lazy: () => import('src/pages/TVShows.tsx'),
+                lazy: () => import('src/pages/TVPage.tsx'),
               },
               {
                 path: path.MOVIES,
-                lazy: () => import('src/pages/Movies.tsx'),
+                lazy: () => import('src/pages/MoviePage.tsx'),
               },
               {
                 path: path.MY_LIST,
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            lazy: () => import('src/pages/Home.tsx'),
+            lazy: () => import('src/pages/HomePage.tsx'),
           },
         ],
       },
@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
       },
       {
         path: path.PLAYER,
-        lazy: () => import('src/pages/Player.tsx'),
+        lazy: () => import('src/pages/PlayerPage.tsx'),
       },
       {
         path: '*',
