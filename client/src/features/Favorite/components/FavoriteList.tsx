@@ -1,10 +1,12 @@
-import { useLoaderData } from 'react-router-dom';
-
+import { useGetFavorites } from '~/apis/favorite/getMultiple.ts';
+import { userKeys } from '~/apis/user/queryKey.ts';
 import Card from '~/components/Card/Card.tsx';
-import { Loader } from '../loader.ts';
+import queryClient from '~/lib/react-query/client.ts';
+import { User } from '~/types/common.ts';
 
 function FavoriteList() {
-  const { favorites = [] } = useLoaderData() as Loader;
+  const user: User | undefined = queryClient.getQueryData(userKeys.detail);
+  const { data: favorites = [] } = useGetFavorites({ params: { userId: { eq: user!.id } } });
 
   return (
     <div className="flex flex-wrap gap-4">
