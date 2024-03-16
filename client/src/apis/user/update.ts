@@ -24,6 +24,7 @@ const updateUser = async ({ id, data }: UseUpdateUserArgs) => {
 export const useUpdateUser = () =>
   useMutation({
     mutationFn: updateUser,
+    mutationKey: userKeys.update(),
     onSuccess: ({ message, data }) => {
       emitToast(message, 'success');
       queryClient.setQueryData(userKeys.detail, data);

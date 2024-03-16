@@ -7,11 +7,9 @@ import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { favoriteKeys } from './queryKey.ts';
 
 export interface UseCreateFavoriteArgs {
-  data: {
-    videoId: number;
-    mediaType: MediaType;
-    userId: number;
-  };
+  videoId: number;
+  mediaType: MediaType;
+  userId: number;
 }
 
 export interface UseCreateFavoriteResponse extends ApiSuccessResponse {
@@ -19,7 +17,7 @@ export interface UseCreateFavoriteResponse extends ApiSuccessResponse {
   data: Favorite;
 }
 
-const createFavorite = async ({ data }: UseCreateFavoriteArgs) => {
+const createFavorite = async (data: UseCreateFavoriteArgs) => {
   const BASE_URL = 'favorites';
   return await axiosClient.post<never, UseCreateFavoriteResponse>(BASE_URL, data);
 };
@@ -27,6 +25,7 @@ const createFavorite = async ({ data }: UseCreateFavoriteArgs) => {
 export const useCreateFavorite = () =>
   useMutation({
     mutationFn: createFavorite,
+    mutationKey: favoriteKeys.create(),
     onSuccess: ({ message, data: newFavorite }) => {
       emitToast(message, 'success');
       queryClient.setQueryData(

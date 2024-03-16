@@ -21,9 +21,10 @@ const deleteFavorite = async ({ id }: UseDeleteFavoriteArgs) => {
 export const useDeleteFavorite = () =>
   useMutation({
     mutationFn: deleteFavorite,
+    mutationKey: favoriteKeys.delete(),
     onSuccess: ({ message }) => {
       emitToast(message, 'success');
-      queryClient.removeQueries({
+      queryClient.invalidateQueries({
         queryKey: favoriteKeys.all,
       });
     },

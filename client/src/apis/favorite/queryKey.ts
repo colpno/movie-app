@@ -8,4 +8,6 @@ export const favoriteKeys = {
   details: () => [...favoriteKeys.all, 'detail'] as const,
   detail: (mediaType: MediaType, videoId: number) =>
     [...favoriteKeys.details(), mediaType, videoId] as const,
+  create: () => [...favoriteKeys.all, 'create'] as const,
+  delete: () => [...favoriteKeys.all, 'delete'] as const,
 };

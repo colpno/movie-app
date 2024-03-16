@@ -23,6 +23,7 @@ const deleteUser = async ({ id }: UseDeleteUserArgs) => {
 export const useDeleteUser = (args: UseDeleteUserArgs) =>
   useMutation({
     mutationFn: async () => await deleteUser(args),
+    mutationKey: userKeys.delete(),
     onSuccess: ({ message }) => {
       emitToast(message, 'success');
       queryClient.removeQueries({

@@ -6,6 +6,7 @@ import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { ApiSuccessResponse } from '../axios.ts';
 import { userKeys } from '../user/queryKey.ts';
+import authKeys from './queryKey.ts';
 
 export interface UseLoginArgs {
   email: string;
@@ -28,6 +29,7 @@ const login = async (credentials: UseLoginArgs) => {
 export const useLogin = () =>
   useMutation({
     mutationFn: login,
+    mutationKey: authKeys.login,
     onSuccess: ({ message, data }) => {
       emitToast(message, 'success');
       queryClient.setQueryData(userKeys.detail, data.user);
