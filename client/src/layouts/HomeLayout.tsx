@@ -6,7 +6,7 @@ function HomeLayout() {
   return (
     <>
       <Navbar />
-      <main className="bg-black">
+      <main className="bg-black min-h-screen">
         <Outlet />
       </main>
     </>
