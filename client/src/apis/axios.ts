@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { API_URL } from '~/configs/common.ts';
 import queryClient from '~/lib/react-query/client.ts';
-import { emitToast } from '~/utils/toast.ts';
 import { userKeys } from './user/queryKey.ts';
 
 interface ApiResponse {
@@ -27,11 +26,9 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
   (response: AxiosResponse) => response.data,
-  (error: AxiosError<ApiResponse>): ApiError => {
+  (error: AxiosError<ApiResponse>) => {
     const message = error.response?.data.message ?? error.message;
     const code = error.response?.status || 500;
-
-    if (error.code !== 'ERR_CANCELED') emitToast(message, 'error');
 
     const errorResponse: ApiError = {
       httpCode: code,
