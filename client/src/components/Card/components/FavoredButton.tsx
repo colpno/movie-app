@@ -4,6 +4,7 @@ import { UseCreateFavoriteArgs } from '~/apis/favorite/create.ts';
 import { userKeys } from '~/apis/user/queryKey.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { User, Video } from '~/types/common.ts';
+import { emitToast } from '~/utils/toast.ts';
 
 interface FavoredButtonProps {
   video: Video;
@@ -21,6 +22,8 @@ function FavoredButton({ video, onClick }: FavoredButtonProps) {
         userId: user.id,
         videoId: video.id,
       });
+    } else {
+      emitToast('You need to login to add to your list', 'info');
     }
   };
 
