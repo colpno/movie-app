@@ -12,7 +12,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="-mt-[var(--navbar-height)]">
       <Hero />
       <div>
         <CardSlider
