@@ -14,7 +14,7 @@ function MovieSelectors() {
     setSelectedGenre(genre);
   };
 
-  return <SelectGenre genres={genres} onChange={handleChange} />;
+  return <SelectGenre genres={genres} onChange={handleChange} className="ml-20" />;
 }
 
 export default MovieSelectors;

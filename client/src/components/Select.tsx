@@ -3,7 +3,7 @@ import { memo, useId } from 'react';
 import useSelect from '~/hooks/useSelect.ts';
 import { SelectOption } from '~/types/form.ts';
 
-interface SelectProps {
+export interface SelectProps {
   onChange: (option: SelectOption) => void;
   options: SelectOption[];
   className?: string;
@@ -15,7 +15,7 @@ function Select({ onChange, options, className }: SelectProps) {
 
   return (
     <select
-      className={`flex cursor-pointer text-[1.4rem] bg-[#00000066] text-white ${className}`}
+      className={`flex cursor-pointer text-[1.4rem] bg-[#00000066] text-white ${className ?? ''}`}
       value={option.value}
       onChange={({ target }) => handleChange(target.value)}
     >

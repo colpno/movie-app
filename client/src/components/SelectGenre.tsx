@@ -2,14 +2,14 @@ import { memo, useMemo } from 'react';
 
 import { Genre } from '~/types/common.ts';
 import { SelectOption } from '~/types/form.ts';
-import Select from './Select';
+import Select, { SelectProps } from './Select';
 
-interface SelectGenreProps {
+interface SelectGenreProps extends Omit<SelectProps, 'onChange' | 'options'> {
   genres: Genre[];
   onChange: (genreId: string) => void;
 }
 
-function SelectGenre({ genres, onChange }: SelectGenreProps) {
+function SelectGenre({ genres, onChange, ...selectProps }: SelectGenreProps) {
   const selectOptions = useMemo(
     () => genres.map((genre) => ({ label: genre.name, value: `${genre.id}` })),
     [genres]
@@ -19,7 +19,7 @@ function SelectGenre({ genres, onChange }: SelectGenreProps) {
     onChange(option.value);
   };
 
-  return <Select onChange={handleChange} options={selectOptions} />;
+  return <Select {...selectProps} onChange={handleChange} options={selectOptions} />;
 }
 
 export default memo(SelectGenre);
