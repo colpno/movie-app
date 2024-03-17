@@ -3,6 +3,7 @@ import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { videoKeys } from '~/apis/video/queryKey.ts';
+import logo from '~/assets/logo.png';
 import { Favorite, Genre, Video } from '~/types/common.ts';
 import CardPeak from './components/CardPeak';
 import CardContext from './context/CardContext.ts';
@@ -44,8 +45,12 @@ function Card({ data, genres, autoSize, favorite }: CardProps) {
           className="rounded-[0.2rem] size-full z-10"
           onClick={() => goToPlayer()}
           loading="lazy"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null; // Prevents infinite loop if default image also fails to load
+            target.src = logo;
+          }}
         />
-
         {isHovered && <CardPeak goToPlayer={goToPlayer} video={data} />}
       </div>
     </CardContext.Provider>
