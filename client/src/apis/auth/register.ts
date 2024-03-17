@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { ApiSuccessResponse } from '../axios.ts';
+import { getCSRFToken } from './getCSRFToken.ts';
 import authKeys from './queryKey.ts';
 
 export interface UseRegisterArgs {
@@ -17,6 +18,7 @@ export interface UseRegisterResponse extends ApiSuccessResponse {
 
 const register = async (data: UseRegisterArgs) => {
   const BASE_URL = 'auth/register';
+  await getCSRFToken();
   return await axiosClient.post<never, UseRegisterResponse>(BASE_URL, data);
 };
 
