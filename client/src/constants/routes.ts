@@ -6,4 +6,5 @@ export const path = {
   LOGIN: '/login',
   SIGNUP: '/signup',
   PLAYER: '/player',
+  SEARCH: '/search',
 };

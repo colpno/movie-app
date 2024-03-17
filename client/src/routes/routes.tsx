@@ -8,6 +8,7 @@ import ErrorBoundary from '~/pages/ErrorBoundary.tsx';
 import UserListedMoviePage from '~/pages/FavoritePage.tsx';
 import LoginPage from '~/pages/LoginPage.tsx';
 import NotFound from '~/pages/NotFound.tsx';
+import SearchPage from '~/pages/SearchPage.tsx';
 import SignUpPage from '~/pages/SignUpPage.tsx';
 import ProtectedRoutes from './ProtectedRoutes.tsx';
 
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
           {
             index: true,
             lazy: () => import('src/pages/HomePage.tsx'),
+          },
+          {
+            path: path.SEARCH,
+            element: <SearchPage />,
           },
         ],
       },

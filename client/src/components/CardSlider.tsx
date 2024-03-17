@@ -1,13 +1,20 @@
 import { memo } from 'react';
 
-import { DiscoverMovie, DiscoverTV, Favorite, Genre } from '~/types/common.ts';
+import {
+  DiscoverMovie,
+  DiscoverTV,
+  Favorite,
+  Genre,
+  SearchMovie,
+  SearchTV,
+} from '~/types/common.ts';
 import Card from './Card/Card.tsx';
 import Slider from './Slider.tsx';
 
 interface CardSliderProps {
-  data: DiscoverMovie[] | DiscoverTV[];
+  data: DiscoverMovie[] | DiscoverTV[] | SearchMovie[] | SearchTV[];
   title?: string;
-  genres: Genre[];
+  genres?: Genre[];
   favorites?: Favorite[];
 }
 

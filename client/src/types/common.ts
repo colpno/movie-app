@@ -31,7 +31,7 @@ export interface User {
   updated_at: Date;
 }
 
-export type Video = DiscoverMovie | DiscoverTV | Movie | TV;
+export type Video = DiscoverMovie | DiscoverTV | Movie | TV | SearchMovie | SearchTV;
 
 export interface Movie {
   adult: boolean;

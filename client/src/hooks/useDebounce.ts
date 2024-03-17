@@ -1,27 +1,24 @@
-import { useCallback, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
-type Callback<T> = (...args: T[]) => void;
+function useDebounce(delay: number) {
+  const [onChangeValue, setOnChangeValue] = useState('');
+  const [debouncedValue, setDebouncedValue] = useState(onChangeValue);
 
-function useDebounce<
-  TCallbackArgs,
-  TCallback extends Callback<TCallbackArgs> = Callback<TCallbackArgs>
->(callback: TCallback, delay: number): TCallback {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const handleChange = (newValue: string) => setOnChangeValue(newValue);
 
-  const debouncedCallback = useCallback(
-    (...args: TCallbackArgs[]) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(onChangeValue);
+    }, delay);
 
-      timeoutRef.current = setTimeout(() => {
-        callback(...args);
-      }, delay);
-    },
-    [callback, delay]
-  );
+    return () => clearTimeout(handler);
+  }, [onChangeValue, delay]);
 
-  return debouncedCallback as TCallback;
+  return {
+    debouncedValue,
+    onChangeValue,
+    handleChange,
+  };
 }
 
 export default useDebounce;
