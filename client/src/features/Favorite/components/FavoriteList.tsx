@@ -9,7 +9,7 @@ function FavoriteList() {
   const { data: favorites = [] } = useGetFavorites({ params: { userId: { eq: user!.id } } });
 
   return (
-    <div className="flex flex-wrap gap-4">
+    <div className="grid grid-cols-5 gap-6">
       {favorites.map((favorite) => {
         return <Card data={favorite.video_id} key={favorite.id} favorite={favorite} />;
       })}

@@ -48,7 +48,7 @@ function SearchPage() {
       </div>
       {results.length > 0 && (
         <div>
-          <div className="grid grid-cols-6 gap-4">
+          <div className="grid grid-cols-5 gap-6">
             {results.map((video) => (
               <Card data={video} key={video.id} genres={genres} />
             ))}

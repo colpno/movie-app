@@ -6,7 +6,7 @@ function DefaultLayout() {
   return (
     <>
       <Navbar />
-      <main className="bg-black pt-[--navbar-height] min-h-screen">
+      <main className="bg-black pt-[--navbar-height] min-h-screen [&>*]:w-[1280px] [&>*]:mx-auto">
         <Outlet />
       </main>
     </>
