@@ -6,7 +6,7 @@ function HomeLayout() {
   return (
     <>
       <Navbar />
-      <main className="bg-black min-h-screen">
+      <main className="bg-black pt-[var(--navbar-height)] min-h-screen [&>*]:w-[1280px] [&>*]:mx-auto">
         <Outlet />
       </main>
     </>
