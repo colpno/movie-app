@@ -15,7 +15,7 @@ function Select({ onChange, options, className }: SelectProps) {
 
   return (
     <select
-      className={`flex ml-20 cursor-pointer text-[1.4rem] bg-[#00000066] text-white ${className}`}
+      className={`flex cursor-pointer text-[1.4rem] bg-[#00000066] text-white ${className}`}
       value={option.value}
       onChange={({ target }) => handleChange(target.value)}
     >
