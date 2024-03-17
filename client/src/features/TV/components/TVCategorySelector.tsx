@@ -14,7 +14,7 @@ function TVCategorySelector() {
     setSelectedGenre(genre);
   };
 
-  return <SelectGenre genres={genres} onChange={handleChange} className="ml-20" />;
+  return <SelectGenre genres={genres} onChange={handleChange} />;
 }
 
 export default TVCategorySelector;

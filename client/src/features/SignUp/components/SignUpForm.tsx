@@ -58,7 +58,7 @@ function SignUpForm({ onSubmit }: SignUpFormProps) {
           className="px-2 py-4 bg-[#e50914] border-none cursor-pointer text-white font-bold text-[1.05rem] rounded-[0.2rem]"
           onClick={() => onSubmit(formValues)}
         >
-          Log In
+          Sign up
         </button>
       )}
     </>

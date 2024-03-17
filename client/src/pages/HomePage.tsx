@@ -4,10 +4,10 @@ import homePageLoader from '~/features/Home/loader.ts';
 
 function HomePage() {
   return (
-    <div className="-mt-[var(--navbar-height)]">
-      <Hero />
+    <>
+      <Hero className="-mt-[var(--navbar-height)] hero" />
       <HomeContent />
-    </div>
+    </>
   );
 }
 

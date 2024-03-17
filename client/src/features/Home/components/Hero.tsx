@@ -6,11 +6,15 @@ import backgroundImage from '~/assets/home.jpg';
 import MovieLogo from '~/assets/homeTitle.webp';
 import Button from '~/components/Button/Button.tsx';
 
-function Hero() {
+interface HeroProps {
+  className?: string;
+}
+
+function Hero({ className }: HeroProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="relative">
+    <div className={`relative ${className ?? ''}`}>
       <img src={backgroundImage} alt="background" className="w-screen h-screen brightness-[.6]" />
       <div className="absolute bottom-20">
         <div>
