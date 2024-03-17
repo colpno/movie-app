@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import CardSlider from '~/components/CardSlider.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
-import { divideDiscoverVideosIntoChunks } from '~/utils/divideVideosIntoChunks.ts';
+import { divideItemsIntoChunks } from '~/utils/divideVideosIntoChunks.ts';
 import TVContext from '../context/TVContext.ts';
 import { Loader } from '../loader.ts';
 import NoTVShows from './NoTVShow.tsx';
@@ -22,7 +22,7 @@ function Shows() {
     queryOptions: { enabled: !!genre?.id, queryKey: [genre?.id] },
   });
   const tvs = response?.pages.flatMap((page) => page.results) ?? [];
-  const tvRows = divideDiscoverVideosIntoChunks(tvs);
+  const tvRows = divideItemsIntoChunks(tvs);
 
   return (
     <div>
@@ -36,7 +36,7 @@ function Shows() {
               favorites={favorites}
             />
           ))}
-          {isFetchingNextPage ? <div>Loading...</div> : <LoadMoreButton onLoad={fetchNextPage} />}
+          <LoadMoreButton onLoad={fetchNextPage} isFetching={isFetchingNextPage} />
         </>
       ) : (
         <NoTVShows />

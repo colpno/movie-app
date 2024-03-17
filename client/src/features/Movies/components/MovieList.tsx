@@ -4,7 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import CardSlider from '~/components/CardSlider.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
-import { divideDiscoverVideosIntoChunks } from '~/utils/divideVideosIntoChunks.ts';
+import { divideItemsIntoChunks } from '~/utils/divideVideosIntoChunks.ts';
 import MovieContext from '../context/MovieContext.ts';
 import { Loader } from '../loader.ts';
 
@@ -21,14 +21,14 @@ function MovieList() {
     queryOptions: { enabled: !!genre, queryKey: [genre?.id] },
   });
   const movies = response?.pages.flatMap((page) => page.results) ?? [];
-  const movieRows = divideDiscoverVideosIntoChunks(movies);
+  const movieRows = divideItemsIntoChunks(movies);
 
   return (
     <div>
       {movieRows.map((chunk, index) => (
         <CardSlider data={chunk} genres={genres} key={`movie-row-${index}`} favorites={favorites} />
       ))}
-      {isFetchingNextPage ? <div>Loading...</div> : <LoadMoreButton onLoad={fetchNextPage} />}
+      <LoadMoreButton onLoad={fetchNextPage} isFetching={isFetchingNextPage} />
     </div>
   );
 }
