@@ -28,6 +28,7 @@ function CardSlider({ title, data, genres, favorites }: CardSliderProps) {
           slidesToShow={6.2}
           infinite={false}
           draggable={false}
+          slidesToScroll={6}
         >
           {data.map((movie) => {
             const match = favorites?.find((favorite) => favorite.video_id.id == movie.id);
