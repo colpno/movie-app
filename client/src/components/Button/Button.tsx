@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
-import './styles/Button.css';
+import './Button.css';
 
 type Variant = 'primary' | 'secondary' | 'text';
 type Size = 'xs' | 'sm' | 'lg' | 'xl';

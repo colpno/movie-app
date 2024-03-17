@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-import { useLogin } from '~/apis/auth/login.ts';
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
 
-function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { mutate: login, isSuccess: isLoggedIn } = useLogin();
-  const navigate = useNavigate();
+interface LoginFormProps {
+  onSubmit: (formValues: LoginFormValues) => void;
+}
 
-  const handleLogin = async () => {
-    login({
-      email,
-      password,
-    });
-  };
+function LoginForm({ onSubmit }: LoginFormProps) {
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: '',
+  });
 
-  useEffect(() => {
-    if (isLoggedIn) navigate('/');
-  }, [isLoggedIn, navigate]);
+  const onEmailChange = (newEmail: string) =>
+    setFormValues((prev) => ({ ...prev, email: newEmail }));
+  const onPasswordChange = (newPassword: string) =>
+    setFormValues((prev) => ({ ...prev, password: newPassword }));
 
   return (
     <div className="flex flex-col items-center justify-center p-8 bg-[#000000b0] w-[25rem] gap-8 text-white">
@@ -29,18 +29,18 @@ function LoginForm() {
         <input
           type="text"
           placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          onChange={(e) => onEmailChange(e.target.value)}
+          value={formValues.email}
         />
         <input
           type="password"
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          onChange={(e) => onPasswordChange(e.target.value)}
+          value={formValues.password}
         />
         <button
           className="px-2 py-4 bg-[#e50914] cursor-pointer text-white rounded-[0.2rem] font-bold text-[1.05rem]"
-          onClick={handleLogin}
+          onClick={() => onSubmit(formValues)}
         >
           Login to your account
         </button>

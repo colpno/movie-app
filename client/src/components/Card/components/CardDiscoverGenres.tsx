@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import CardContext from '../context/CardContext.ts';
+import CardContext from '../CardContext.ts';
 import { SeparatorGenre } from './CardGenre.tsx';
 
 interface CardDiscoverGenresProps {

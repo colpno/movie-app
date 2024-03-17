@@ -5,6 +5,10 @@ import { videoKeys } from '~/apis/video/queryKey.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { MediaType } from '~/types/common.ts';
 
+export interface Loader {
+  trailers?: UseGetTrailersResponse['data']['results'];
+}
+
 interface Video {
   mediaType: MediaType;
   id: number;

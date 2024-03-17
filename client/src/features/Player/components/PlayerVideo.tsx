@@ -1,27 +1,18 @@
 import { memo } from 'react';
 
-import { UseGetTrailersResponse } from '~/apis/video/getTrailer.ts';
-import { Trailer } from '~/types/common.ts';
+import { getPlayerSource } from '~/utils/getPlayerSource.ts';
+import { Loader } from '../loader.ts';
 
 interface PlayerVideoProps {
-  trailers?: UseGetTrailersResponse['data']['results'];
+  trailers?: Loader['trailers'];
   className?: string;
 }
 
-function PlayerVideo({ trailers, className }: PlayerVideoProps) {
+function PlayerVideo({ className, trailers }: PlayerVideoProps) {
   if (!trailers || trailers.length <= 0) return <span>Nothing</span>;
 
-  const getSource = ({ site, key }: Trailer) => {
-    switch (site.toLowerCase()) {
-      case 'youtube':
-        return `https://www.youtube.com/embed/${key}`;
-      default:
-        return '';
-    }
-  };
-
   const trailer = trailers[0];
-  const source = getSource(trailer);
+  const source = getPlayerSource(trailer);
 
   if (!source) return <span>Invalid source</span>;
 

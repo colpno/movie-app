@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
 
 import SelectGenre from '~/components/SelectGenre.tsx';
-import MovieContext from '../context/MovieContext.ts';
 import { Loader } from '../loader.ts';
+import MovieContext from '../MovieContext.ts';
 
 function MovieSelectors() {
   const { setSelectedGenre } = useContext(MovieContext);

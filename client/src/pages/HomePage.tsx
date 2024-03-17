@@ -1,8 +1,14 @@
-import Home from '~/features/Home/Home.tsx';
+import Hero from '~/features/Home/components/Hero.tsx';
+import HomeContent from '~/features/Home/components/HomeContent.tsx';
 import homePageLoader from '~/features/Home/loader.ts';
 
 function HomePage() {
-  return <Home />;
+  return (
+    <div className="-mt-[var(--navbar-height)]">
+      <Hero />
+      <HomeContent />
+    </div>
+  );
 }
 
 export { HomePage as Component, homePageLoader as loader };

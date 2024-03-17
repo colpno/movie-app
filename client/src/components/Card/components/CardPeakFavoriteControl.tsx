@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { useCreateFavorite } from '~/apis/favorite/create.ts';
-import CardContext from '../context/CardContext.ts';
+import CardContext from '../CardContext.ts';
 import FavoredButton from './FavoredButton.tsx';
 import UnfavoredButton from './UnfavoredButton.tsx';
 

@@ -4,11 +4,11 @@ import { useLoaderData } from 'react-router-dom';
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import Card from '~/components/Card/Card.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
-import TVContext from '../context/TVContext.ts';
 import { Loader } from '../loader.ts';
+import TVContext from '../TVContext.ts';
 import NoTVShows from './NoTVShow.tsx';
 
-function Shows() {
+function TVShowList() {
   const { genres, favorites } = useLoaderData() as Loader;
   const { selectedGenre: genre } = useContext(TVContext);
   const {
@@ -38,4 +38,4 @@ function Shows() {
     </div>
   );
 }
-export default Shows;
+export default TVShowList;

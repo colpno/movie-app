@@ -1,12 +1,9 @@
 import { BsArrowLeft } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+
+import useGoBackward from '~/hooks/useGoBackward.ts';
 
 function GoBackButton() {
-  const navigate = useNavigate();
-
-  const goBack = () => {
-    navigate(-1);
-  };
+  const goBack = useGoBackward();
 
   return (
     <div className="absolute p-8 z-[1]">

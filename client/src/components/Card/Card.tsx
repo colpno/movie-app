@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { videoKeys } from '~/apis/video/queryKey.ts';
 import logo from '~/assets/logo.png';
 import { Favorite, Genre, Video } from '~/types/common.ts';
+import { getMediaType } from '~/utils/checkMediaType.ts';
+import CardContext from './CardContext.ts';
 import CardPeak from './components/CardPeak';
-import CardContext from './context/CardContext.ts';
 
 interface CardProps {
   data: Video;
@@ -18,7 +19,7 @@ interface CardProps {
 function Card({ data, genres, autoSize, favorite }: CardProps) {
   const queryClient = useQueryClient();
   const [isHovered, setIsHovered] = useState(false);
-  const mediaType = 'title' in data ? 'movie' : 'tv';
+  const mediaType = getMediaType(data);
   const navigate = useNavigate();
   const contextValues = {
     genres: genres ?? [],

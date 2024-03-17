@@ -1,7 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { SERVER_URL } from '~/configs/common.ts';
+import { path } from '~/constants/routes.ts';
 import queryClient from '~/lib/react-query/client.ts';
+import { router } from '~/routes/routes.tsx';
 import { User } from '~/types/common.ts';
 import { emitToast } from '~/utils/toast.ts';
 import axiosClient, { ApiSuccessResponse } from '../axios.ts';
@@ -34,5 +36,6 @@ export const useLogin = () =>
       emitToast(message, 'success');
       queryClient.setQueryData(userKeys.detail, data.user);
       queryClient.setQueryData(userKeys.apiToken(), data.token);
+      router.navigate(path.HOME);
     },
   });
