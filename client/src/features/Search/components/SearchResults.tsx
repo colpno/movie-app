@@ -4,6 +4,7 @@ import { useGetGenres } from '~/apis/genre/getMultiple.ts';
 import { useSearchInfiniteVideos } from '~/apis/video/search.ts';
 import Card from '~/components/Card/Card.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
+import useLoading from '~/hooks/useLoading.ts';
 import { MediaType, SearchMovie } from '~/types/common.ts';
 
 interface SearchResultsProps {
@@ -17,12 +18,15 @@ function SearchResults({ mediaType, searchValue }: SearchResultsProps) {
     data: searchResponse,
     fetchNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useSearchInfiniteVideos({
     mediaType: mediaType as MediaType,
     params: { query: searchValue },
     queryOptions: { enabled: searchValue.length > 0, queryKey: [searchValue] },
   });
   const results = searchResponse?.pages.flatMap((page) => page.results as SearchMovie[]) ?? [];
+
+  useLoading(isLoading);
 
   return (
     <>

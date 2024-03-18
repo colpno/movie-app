@@ -1,9 +1,12 @@
+import { useQueries } from '@tanstack/react-query';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useGetVideo } from '~/apis/video/getSingle.ts';
-import { useGetTrailer } from '~/apis/video/getTrailer.ts';
+import { getVideoQuery } from '~/apis/video/getSingle.ts';
+import { getTrailerQuery } from '~/apis/video/getTrailer.ts';
 import PlayerVideo from '~/features/Player/components/PlayerVideo.tsx';
 import useGoBackward from '~/hooks/useGoBackward.ts';
+import useLoading from '~/hooks/useLoading.ts';
 import { MediaType } from '~/types/common.ts';
 import MoreMovieInfo from '../features/MoreInfo/components/MoreMovieInfo';
 import MoreTVInfo from '../features/MoreInfo/components/MoreTVInfo';
@@ -11,16 +14,18 @@ import MoreTVInfo from '../features/MoreInfo/components/MoreTVInfo';
 function MoreInfo() {
   const { mediaType, videoId } = useParams();
   const goBack = useGoBackward();
-
   const media = mediaType as MediaType;
   const id = videoId ? parseInt(videoId) : 0;
 
-  const { data: video } = useGetVideo({
-    id,
-    mediaType: media,
+  const queryResults = useQueries({
+    queries: [getVideoQuery({ id, mediaType: media }), getTrailerQuery({ id, mediaType: media })],
   });
 
-  const { data: trailers } = useGetTrailer({ id, mediaType: media });
+  const video = queryResults[0].data;
+  const trailers = queryResults[1].data;
+  const isLoading = useMemo(() => queryResults.some((query) => query.isLoading), [queryResults]);
+
+  useLoading(isLoading);
 
   if (!videoId || !mediaType || !video) {
     goBack();

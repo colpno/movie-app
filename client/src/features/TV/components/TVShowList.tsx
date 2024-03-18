@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import Card from '~/components/Card/Card.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
+import useLoading from '~/hooks/useLoading.ts';
 import { Loader } from '../loader.ts';
 import TVContext from '../TVContext.ts';
 import NoTVShows from './NoTVShow.tsx';
@@ -15,12 +16,15 @@ function TVShowList() {
     data: response,
     fetchNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useGetInfiniteVideos({
     mediaType: 'tv',
     params: { with_genres: `${genre?.id || ''}` },
     queryOptions: { enabled: !!genre?.id, queryKey: [genre?.id] },
   });
   const tvs = response?.pages.flatMap((page) => page.results) ?? [];
+
+  useLoading(isLoading);
 
   return (
     <div>

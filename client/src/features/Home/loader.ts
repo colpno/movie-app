@@ -1,4 +1,4 @@
-import { json } from 'react-router-dom';
+import { defer } from 'react-router-dom';
 
 import { favoritesLoader } from '~/apis/favorite/getMultiple.ts';
 import { genresLoader } from '~/apis/genre/getMultiple.ts';
@@ -32,7 +32,7 @@ const homePageLoader = async () => {
     genreLoader(),
   ]);
 
-  return json({
+  return defer({
     movies: [...moviesPage1.results, ...moviesPage2.results, ...moviesPage3.results],
     genres,
     favorites,

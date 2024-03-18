@@ -4,6 +4,7 @@ import { useLoaderData } from 'react-router-dom';
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import Card from '~/components/Card/Card.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
+import useLoading from '~/hooks/useLoading.ts';
 import { Loader } from '../loader.ts';
 import MovieContext from '../MovieContext.ts';
 
@@ -14,12 +15,15 @@ function MovieList() {
     data: response,
     fetchNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useGetInfiniteVideos({
     mediaType: 'movie',
     params: { with_genres: `${genre?.id}` },
     queryOptions: { enabled: !!genre, queryKey: [genre?.id] },
   });
   const movies = response?.pages.flatMap((page) => page.results) ?? [];
+
+  useLoading(isLoading);
 
   return (
     <div>

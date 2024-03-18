@@ -2,10 +2,14 @@ import { useRegister } from '~/apis/auth/register.ts';
 import SignUpForm, { SignUpFormValues } from '~/features/SignUp/components/SignUpForm.tsx';
 import SignUpQuotes from '~/features/SignUp/components/SignUpQuotes.tsx';
 import useAuthenticate from '~/hooks/useAuthenticate.ts';
+import useLoading from '~/hooks/useLoading.ts';
 
 function SignUpPage() {
   useAuthenticate();
-  const { mutate: register } = useRegister();
+
+  const { mutate: register, isPending } = useRegister();
+
+  useLoading(isPending);
 
   const handleSubmit = async (formValues: SignUpFormValues) => {
     const { email, password } = formValues;

@@ -1,8 +1,11 @@
 import { useLogin } from '~/apis/auth/login.ts';
 import LoginForm, { LoginFormValues } from '~/features/Login/components/LoginForm.tsx';
+import useLoading from '~/hooks/useLoading.ts';
 
 function LoginPage() {
-  const { mutate: login } = useLogin();
+  const { mutate: login, isPending } = useLogin();
+
+  useLoading(isPending);
 
   const handleSubmit = async ({ email, password }: LoginFormValues) => {
     login({

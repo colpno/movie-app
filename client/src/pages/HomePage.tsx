@@ -1,12 +1,19 @@
+import { useLoaderData } from 'react-router-dom';
+
+import RouterLoadingWrapper from '~/components/Loading/RouterLoadingWrapper.tsx';
 import Hero from '~/features/Home/components/Hero.tsx';
 import HomeContent from '~/features/Home/components/HomeContent.tsx';
-import homePageLoader from '~/features/Home/loader.ts';
+import homePageLoader, { Loader } from '~/features/Home/loader.ts';
 
 function HomePage() {
+  const loaderData = useLoaderData() as Loader;
+
   return (
     <>
       <Hero className="-mt-[var(--navbar-height)] hero" />
-      <HomeContent />
+      <RouterLoadingWrapper loaderData={loaderData}>
+        <HomeContent />
+      </RouterLoadingWrapper>
     </>
   );
 }
