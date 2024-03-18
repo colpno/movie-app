@@ -112,7 +112,20 @@ export interface TV {
     still_path?: string;
   };
   name: string;
-  next_episode_to_air?: string;
+  next_episode_to_air?: {
+    id: number;
+    name: string;
+    overview: string;
+    vote_average: number;
+    vote_count: number;
+    air_date: string;
+    episode_number: number;
+    production_code: string;
+    runtime: number;
+    season_number: number;
+    show_id: number;
+    still_path?: string;
+  };
   networks: {
     id: number;
     logo_path: string;
