@@ -14,7 +14,7 @@ interface SeparatorGenreProps extends GenreProps {
 export function Genre({ genre }: GenreProps) {
   return (
     <li className="first-of-type:list-none">
-      <Button hasLabel variant="text">
+      <Button hasLabel variant="text" className="!cursor-default">
         {genre.name}
       </Button>
     </li>
