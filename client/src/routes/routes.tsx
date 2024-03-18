@@ -7,6 +7,7 @@ import LoginLayout from '~/layouts/LoginLayout.tsx';
 import ErrorBoundary from '~/pages/ErrorBoundary.tsx';
 import UserListedMoviePage from '~/pages/FavoritePage.tsx';
 import LoginPage from '~/pages/LoginPage.tsx';
+import MoreInfo from '~/pages/MoreInfo.tsx';
 import NotFound from '~/pages/NotFound.tsx';
 import SearchPage from '~/pages/SearchPage.tsx';
 import SignUpPage from '~/pages/SignUpPage.tsx';
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
           {
             path: path.SEARCH,
             element: <SearchPage />,
+          },
+          {
+            path: path.MORE(),
+            element: <MoreInfo />,
           },
         ],
       },
