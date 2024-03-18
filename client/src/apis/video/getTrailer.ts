@@ -30,7 +30,7 @@ const getTrailer = async ({ mediaType, id, signal }: GetTrailersArgs) => {
   return (await axiosClient.get<never, UseGetTrailersResponse>(BASE_URL, { signal })).data.results;
 };
 
-const getTrailerQuery = (args: UseGetTrailersArgs): QueryOptions => ({
+export const getTrailerQuery = (args: UseGetTrailersArgs): QueryOptions => ({
   ...args.queryOptions,
   initialData: undefined,
   queryFn: ({ signal }) => getTrailer({ ...args, signal }),

@@ -25,7 +25,7 @@ const getVideo = async <T extends MediaType>({ id, mediaType, signal }: GetVideo
   return (await axiosClient.get<never, UseGetVideoResponse<T>>(BASE_URL, { signal })).data;
 };
 
-const getVideoQuery = <T extends MediaType>(args: UseGetVideoArgs<T>): QueryOptions<T> => {
+export const getVideoQuery = <T extends MediaType>(args: UseGetVideoArgs<T>): QueryOptions<T> => {
   const { mediaType, id, queryOptions } = args;
   return {
     ...queryOptions,
