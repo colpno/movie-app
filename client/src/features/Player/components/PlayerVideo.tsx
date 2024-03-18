@@ -1,14 +1,14 @@
-import { memo } from 'react';
+import { IframeHTMLAttributes, memo } from 'react';
 
 import { getPlayerSource } from '~/utils/getPlayerSource.ts';
 import { Loader } from '../loader.ts';
 
-interface PlayerVideoProps {
+interface PlayerVideoProps extends IframeHTMLAttributes<HTMLIFrameElement> {
   trailers?: Loader['trailers'];
   className?: string;
 }
 
-function PlayerVideo({ className, trailers }: PlayerVideoProps) {
+function PlayerVideo({ className, trailers, ...iframeProps }: PlayerVideoProps) {
   if (!trailers || trailers.length <= 0) return <span>Nothing</span>;
 
   const trailer = trailers[0];
@@ -25,6 +25,7 @@ function PlayerVideo({ className, trailers }: PlayerVideoProps) {
         title={trailer.name}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
+        {...iframeProps}
       ></iframe>
     </div>
   );
