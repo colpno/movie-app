@@ -28,7 +28,7 @@ function CardPeak({ video, goToPlayer }: CardPeakProps) {
       </div>
       <div className="flex flex-col p-4 gap-2 text-white w-full">
         <h3 onClick={() => goToPlayer()}>{'title' in video ? video.title : video.name}</h3>
-        <CardPeakControls goToPlayer={goToPlayer} />
+        <CardPeakControls mediaType={mediaType} videoId={videoId} goToPlayer={goToPlayer} />
         <CardGenres video={video} />
       </div>
     </div>
