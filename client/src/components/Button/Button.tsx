@@ -33,11 +33,12 @@ function Button<T>({
   variant,
   size,
   hasLabel,
+  className,
   ...componentBaseProps
 }: Props<T> & BaseProps) {
   let Component: ElementType = 'button';
   const componentProps: Partial<LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>> = {};
-  const classes = ['btn'];
+  const classes = ['btn', className];
 
   variant && classes.push(`btn-${variant}`);
   size && classes.push(`btn-${size}`);
