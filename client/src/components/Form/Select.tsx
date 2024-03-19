@@ -1,21 +1,29 @@
-import { memo, useId } from 'react';
+import { memo, SelectHTMLAttributes, useId } from 'react';
 
 import useSelect from '~/hooks/useSelect.ts';
 import { SelectOption } from '~/types/form.ts';
 
-export interface SelectProps {
+type HTMLSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange'>;
+
+export interface SelectProps extends HTMLSelectProps {
   onChange: (option: SelectOption) => void;
   options: SelectOption[];
-  className?: string;
+  noStyles?: boolean;
 }
 
-function Select({ onChange, options, className }: SelectProps) {
+function Select({ onChange, options, className, noStyles, ...selectProps }: SelectProps) {
   const { option, handleChange } = useSelect({ options, onChange });
   const uuid = useId();
+  const styles = noStyles
+    ? className
+    : `bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500${
+        className ? ` ${className}` : ''
+      }`;
 
   return (
     <select
-      className={`flex cursor-pointer text-[1.4rem] bg-[#00000066] text-white ${className ?? ''}`}
+      {...selectProps}
+      className={styles}
       value={option.value}
       onChange={({ target }) => handleChange(target.value)}
     >

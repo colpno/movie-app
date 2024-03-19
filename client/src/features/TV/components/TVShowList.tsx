@@ -27,7 +27,7 @@ function TVShowList() {
   useLoading(isLoading);
 
   return (
-    <div>
+    <div className="mt-8">
       {tvs.length > 0 ? (
         <div className="grid grid-cols-5 gap-6">
           {tvs.map((tv, index) => {

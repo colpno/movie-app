@@ -26,7 +26,7 @@ function MovieList() {
   useLoading(isLoading);
 
   return (
-    <div>
+    <div className="mt-8">
       <div className="grid grid-cols-5 gap-6">
         {movies.map((movie, index) => {
           const favorite = favorites?.find((fav) => fav.video_id.id === movie.id);

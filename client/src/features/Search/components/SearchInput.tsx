@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import Select from '~/components/Select.tsx';
+import Select from '~/components/Form/Select.tsx';
 import { SelectOption } from '~/types/form.ts';
 
 interface SearchInputProps {

@@ -1,8 +1,8 @@
 import { memo, useMemo } from 'react';
 
+import Select, { SelectProps } from '~/components/Form/Select.tsx';
 import { Genre } from '~/types/common.ts';
 import { SelectOption } from '~/types/form.ts';
-import Select, { SelectProps } from './Select';
 
 interface SelectGenreProps extends Omit<SelectProps, 'onChange' | 'options'> {
   genres: Genre[];
