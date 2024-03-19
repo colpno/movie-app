@@ -19,6 +19,7 @@ type BaseProps = {
   variant?: Variant | `outline-${Variant}`;
   size?: Size;
   hasLabel?: boolean;
+  noStyles?: boolean;
 };
 type Props<T> = T extends { to: string }
   ? LinkProps
@@ -34,11 +35,12 @@ function Button<T>({
   size,
   hasLabel,
   className,
+  noStyles,
   ...componentBaseProps
 }: Props<T> & BaseProps) {
   let Component: ElementType = 'button';
   const componentProps: Partial<LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>> = {};
-  const classes = ['btn', className];
+  const classes = noStyles ? [className] : ['btn', className];
 
   variant && classes.push(`btn-${variant}`);
   size && classes.push(`btn-${size}`);
