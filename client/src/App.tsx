@@ -18,7 +18,7 @@ function App() {
         <RouterProvider router={router} />
       </GlobalContext.Provider>
       <Toast />
-      {isLoading && <Loading />}
+      <Loading />
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
