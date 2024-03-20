@@ -2,11 +2,11 @@ import { IframeHTMLAttributes, memo } from 'react';
 
 import LoadingSpinner from '~/components/Loading/LoadingSpinner.tsx';
 import { getPlayerSource } from '~/utils/getPlayerSource.ts';
-import { Loader } from '../loader.ts';
+import { PlayerPageLoader } from '../loader.ts';
 
 interface PlayerVideoProps extends IframeHTMLAttributes<HTMLIFrameElement> {
   isFetching?: boolean;
-  trailers?: Loader['trailers'];
+  trailers?: PlayerPageLoader[0];
   className?: string;
 }
 

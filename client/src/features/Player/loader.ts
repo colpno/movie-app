@@ -1,13 +1,15 @@
-import { json } from 'react-router-dom';
+import { defer } from 'react-router-dom';
 
 import { getTrailerLoader, UseGetTrailersResponse } from '~/apis/video/getTrailer.ts';
 import { videoKeys } from '~/apis/video/queryKey.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { MediaType } from '~/types/common.ts';
 
-export interface Loader {
-  trailers?: UseGetTrailersResponse['data']['results'];
+export interface PlayerPagePromiseLoader {
+  trailers?: Promise<UseGetTrailersResponse['data']['results']>;
 }
+
+export type PlayerPageLoader = [UseGetTrailersResponse['data']['results']];
 
 interface Video {
   mediaType: MediaType;
@@ -20,7 +22,7 @@ const playerPageLoader = async () => {
     queryClient.getQueryData(videoKeys.trailer);
 
   if (storedTrailer) {
-    return json({
+    return defer({
       trailer: storedTrailer[0],
     });
   }
@@ -29,7 +31,7 @@ const playerPageLoader = async () => {
     const trailerLoader = getTrailerLoader({ mediaType: video.mediaType, id: video.id });
     const trailers = await trailerLoader();
 
-    return json({
+    return defer({
       trailers,
     });
   }

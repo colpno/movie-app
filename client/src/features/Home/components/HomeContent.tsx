@@ -1,10 +1,10 @@
 import { useAsyncValue } from 'react-router-dom';
 
 import CardSlider from '~/components/CardSlider.tsx';
-import { Loader } from '../loader.ts';
+import { HomePageLoader } from '../loader.ts';
 
 function HomeContent() {
-  const { movies, genres, favorites } = useAsyncValue() as Loader;
+  const [movies, genres, favorites] = useAsyncValue() as HomePageLoader;
 
   const getMoviesFromRange = (from: number, to: number) => {
     return movies.slice(from, to);

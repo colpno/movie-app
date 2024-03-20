@@ -1,16 +1,16 @@
 import { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useAsyncValue } from 'react-router-dom';
 
 import { useGetInfiniteVideos } from '~/apis/video/getInfinite.ts';
 import Card from '~/components/Card/Card.tsx';
 import LoadMoreButton from '~/components/LoadMoreButton.tsx';
 import useLoading from '~/hooks/useLoading.ts';
-import { Loader } from '../loader.ts';
+import { TVPageLoader } from '../loader.ts';
 import TVContext from '../TVContext.ts';
 import NoTVShows from './NoTVShow.tsx';
 
 function TVShowList() {
-  const { genres, favorites } = useLoaderData() as Loader;
+  const [genres, favorites] = useAsyncValue() as TVPageLoader;
   const { selectedGenre: genre } = useContext(TVContext);
   const {
     data: response,

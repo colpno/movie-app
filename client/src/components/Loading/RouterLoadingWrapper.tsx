@@ -1,11 +1,11 @@
-import { Suspense } from 'react';
-import { Await } from 'react-router-dom';
+import { ReactNode, Suspense } from 'react';
+import { Await, AwaitProps } from 'react-router-dom';
 
 import ErrorBoundary from '~/pages/ErrorBoundary.tsx';
 import Loading from './Loading.tsx';
 
 interface RouterLoadingWrapperProps {
-  children: React.ReactNode;
+  children: ReactNode | AwaitProps['children'];
   loaderData: unknown;
 }
 

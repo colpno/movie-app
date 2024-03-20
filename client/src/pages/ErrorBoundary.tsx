@@ -5,7 +5,9 @@ import { ApiError } from '~/apis/axios.ts';
 function ErrorBoundary() {
   const error = useRouteError() as ApiError;
 
-  return <div>{error.message}</div>;
+  if (error) console.error('error:', error);
+
+  return <></>;
 }
 
 export default ErrorBoundary;

@@ -7,7 +7,7 @@ function LoginPage() {
 
   useLoading(isPending);
 
-  const handleSubmit = async ({ email, password }: LoginFormValues) => {
+  const handleSubmit = ({ email, password }: LoginFormValues) => {
     login({
       email,
       password,
