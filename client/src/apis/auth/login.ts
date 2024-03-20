@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { SERVER_URL } from '~/configs/common.ts';
 import { path } from '~/constants/routes.ts';
 import queryClient from '~/lib/react-query/client.ts';
 import { router } from '~/routes/routes.tsx';
@@ -24,8 +23,8 @@ export interface UseLoginResponse extends ApiSuccessResponse {
 }
 
 const login = async (credentials: UseLoginArgs) => {
-  await axiosClient.get('sanctum/csrf-cookie', { baseURL: `${SERVER_URL}` });
-  return await axiosClient.post<never, UseLoginResponse>('auth/login', credentials);
+  const BASE_URL = 'auth/login';
+  return await axiosClient.post<never, UseLoginResponse>(BASE_URL, credentials);
 };
 
 export const useLogin = () =>
