@@ -1,0 +1,11 @@
+name: Trigger Render Build
+on:
+  schedule:
+    - cron: '*/14 * * * *'
+jobs:
+  build:
+    name: Build Hook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl request
+        run: curl -X POST -d {} https://api.render.com/deploy/srv-cnss2cgl6cac73dc6bqg\?key\=GJVza0jd7sE
