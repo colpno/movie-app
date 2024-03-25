@@ -13,7 +13,7 @@ function Loading() {
   }, []);
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 bg-black z-[1000] flex flex-col items-center justify-center">
+    <div className="fixed top-0 bottom-0 left-0 right-0 w-screen h-screen bg-black z-[1000] flex flex-col items-center justify-center">
       <img src={logo} alt="Logo" className="size-[30vmax] aspect-video" />
       <div className="size-32">
         <LoadingSpinner />
