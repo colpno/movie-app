@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('CLIENT_URL', 'http://localhost:5173')],
+    'allowed_origins' => ['https://movie-app-livid-one.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
