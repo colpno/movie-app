@@ -10,6 +10,8 @@
     <a href="https://github.com/colpno/movie-app/tree/master/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
+	<a href="https://movie-app-livid-one.vercel.app" target="_blank">View Demo</a>
+    ·
     <a href="https://github.com/colpno/movie-app/issues">Report Bug</a>
     ·
     <a href="https://github.com/colpno/movie-app/issues">Request Feature</a>
