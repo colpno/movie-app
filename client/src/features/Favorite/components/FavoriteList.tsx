@@ -13,7 +13,7 @@ function FavoriteList() {
   useLoading(isFetching);
 
   return (
-    <div className="grid grid-cols-5 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-5 gap-6">
       {favorites.map((favorite) => {
         return <Card data={favorite.video_id} key={favorite.id} favorite={favorite} />;
       })}

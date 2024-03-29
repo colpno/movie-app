@@ -36,7 +36,9 @@ function Card({ data, genres, autoSize, favorite }: CardProps) {
   return (
     <CardContext.Provider value={contextValues}>
       <div
-        className={`max-w-[230px] ${autoSize ? '' : 'w-[230px]'} h-full cursor-pointer relative`}
+        className={`max-w-[clamp(130px,16vw,230px)] ${
+          autoSize ? '' : 'w-[230px]'
+        } h-full cursor-pointer relative`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

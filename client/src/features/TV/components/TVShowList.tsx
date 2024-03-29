@@ -29,7 +29,7 @@ function TVShowList() {
   return (
     <div className="mt-8">
       {tvs.length > 0 ? (
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-5 gap-6">
           {tvs.map((tv, index) => {
             const favorite = favorites?.find((fav) => fav.video_id.id === tv.id);
             return <Card data={tv} genres={genres} key={`tv-row-${index}`} favorite={favorite} />;

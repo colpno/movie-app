@@ -23,20 +23,20 @@ function Navbar() {
   return (
     <div>
       <ScrollNavbar>
-        <div className="gap-8 flex items-center">
+        <div className="gap-2 lg:gap-8 flex items-center">
           <div className="flex items-center justify-center">
             <Link to="/">
               <img src={logo} alt="Logo" className="h-16" />
             </Link>
           </div>
+          <GiHamburgerMenu
+            onClick={() => setOpenSidebar(true)}
+            className="text-[2rem] cursor-pointer text-white block lg:hidden"
+          />
           <div className="hidden lg:block">
             <NavbarNavigation navLinks={links} />
           </div>
         </div>
-        <GiHamburgerMenu
-          onClick={() => setOpenSidebar(true)}
-          className="text-[2rem] cursor-pointer text-white block lg:hidden"
-        />
         <div className="gap-4 flex items-center">
           <NavbarSearch />
           <NavbarLogout />

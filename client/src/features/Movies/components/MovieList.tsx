@@ -27,7 +27,7 @@ function MovieList() {
 
   return (
     <div className="mt-8">
-      <div className="grid grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-5 gap-6">
         {movies.map((movie, index) => {
           const favorite = favorites?.find((fav) => fav.video_id.id === movie.id);
           return (

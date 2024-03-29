@@ -15,7 +15,7 @@ interface SidebarNavProps {
 
 function SidebarNav({ item }: SidebarNavProps) {
   const { pathname } = useLocation();
-  const isOnSite = item.to && pathname.includes(item.to);
+  const isOnSite = item.to && pathname === item.to;
 
   return (
     <li className={`list-none  [&_*]:hover:text-white${isOnSite ? ' [&_*]:text-white' : ''}`}>
