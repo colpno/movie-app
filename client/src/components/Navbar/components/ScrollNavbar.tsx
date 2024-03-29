@@ -14,7 +14,7 @@ function ScrollNavbar({ children }: ScrollNavbarProps) {
 
   return (
     <nav
-      className={`flex h-[--navbar-height] w-full justify-between fixed top-0 z-[2] px-16 items-center duration-300 ease-in-out ${
+      className={`flex h-[--navbar-height] w-full justify-between fixed top-0 z-[2] px-4 md:px-16 items-center duration-300 ease-in-out ${
         isScrolled ? 'bg-black' : ''
       }`}
     >

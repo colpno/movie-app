@@ -1,20 +1,20 @@
 import { Link } from 'react-router-dom';
 
-function NavbarNavigation() {
-  const links = [
-    { name: 'Home', link: '/' },
-    { name: 'TV Shows', link: '/tv' },
-    { name: 'Movies', link: '/movies' },
-    { name: 'My List', link: '/mylist' },
-  ];
+interface NavbarNavigationProps {
+  navLinks: {
+    title: string;
+    to: string;
+  }[];
+}
 
+function NavbarNavigation({ navLinks }: NavbarNavigationProps) {
   return (
     <ul className="list-none flex gap-8">
-      {links.map(({ name, link }) => {
+      {navLinks.map(({ title, to }) => {
         return (
-          <li key={name}>
-            <Link to={link} className="text-white no-underline">
-              {name}
+          <li key={title}>
+            <Link to={to} className="text-white no-underline">
+              {title}
             </Link>
           </li>
         );

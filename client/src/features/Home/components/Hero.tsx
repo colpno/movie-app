@@ -7,11 +7,11 @@ interface HeroProps {
 
 function Hero({ className }: HeroProps) {
   return (
-    <div className={`relative ${className ?? ''}`}>
-      <img src={backgroundImage} alt="background" className="w-screen h-screen brightness-[.6]" />
+    <div className={`relative ${className ?? ''} w-screen h-[40rem] lg:h-screen `}>
+      <img src={backgroundImage} alt="background" className="w-full h-full brightness-[.6]" />
       <div className="absolute bottom-20">
         <div>
-          <img src={MovieLogo} alt="Movie Logo" className="w-full h-full ml-20" />
+          <img src={MovieLogo} alt="Movie Logo" className="w-[15rem] lg:w-full h-full ml-20" />
         </div>
       </div>
     </div>
