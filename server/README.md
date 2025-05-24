@@ -126,11 +126,6 @@ php artisan serve
 
 Tạ Gia Vinh - gvinhh@gmail.com
 
-- [![LinkedIn][linkedin-shield]][linkedin-url]
-- [![Facebook][Facebook-shield]][Facebook-url]
-
-Project Link: [https://github.com/colpno/movie-app](https://github.com/colpno/movie-app)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
