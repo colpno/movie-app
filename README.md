@@ -10,8 +10,6 @@
     <a href="https://github.com/colpno/movie-app/tree/master/docs"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-	<a href="https://movie-app-livid-one.vercel.app" target="_blank">View Demo</a>
-    ·
     <a href="https://github.com/colpno/movie-app/issues">Report Bug</a>
     ·
     <a href="https://github.com/colpno/movie-app/issues">Request Feature</a>
@@ -45,11 +43,6 @@ Go into specific folder for detailed guide:
 ## Contact
 
 Tạ Gia Vinh - gvinhh@gmail.com
-
-- [![LinkedIn][linkedin-shield]][linkedin-url]
-- [![Facebook][Facebook-shield]][Facebook-url]
-
-Project Link: [https://github.com/colpno/movie-app](https://github.com/colpno/movie-app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
